@@ -16,7 +16,7 @@
   <resolvers>
     <!-- add any 3rd-party maven repos here... -->
     <ibiblio name="sun-repo-2" m2compatible="true" root="http://download.java.net/maven/2/" />
-    <ibiblio name="Huygens" m2compatible="true" root="http://maven.huygens.knaw.nl/repository/" />
+    <ibiblio name="huygens" m2compatible="true" root="http://maven.huygens.knaw.nl/repository/" />
 
     <!--
       for *retrieving* artifacts for local testing builds,
@@ -43,7 +43,7 @@
     <chain name="default" changingPattern=".*SNAPSHOT">
       <resolver ref="public"/>
       <resolver ref="sun-repo-2"/>
-      <resolver ref="Huygens"/>
+      <resolver ref="huygens"/>
       <!--
         Potential gotcha: you want your local-m2 to be last, or at least
         after the public repo. Otherwise maven proper might partially
