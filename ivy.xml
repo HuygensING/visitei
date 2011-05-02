@@ -1,0 +1,21 @@
+<ivy-module version="2.0">
+
+	<info organisation="nl.knaw.huygens" module="tei"/>
+
+  <configurations>
+    <conf name="main" />
+    <conf name="test" extends="main" visibility="private"/>
+  </configurations>
+
+  <publications>
+    <artifact name="tei" type="jar" conf="main" ext="jar"/>
+  </publications>
+
+  <dependencies>
+    <dependency org="com.google.guava" name="guava" rev="r05" conf="main->default" />
+    <dependency org="xerces" name="xercesImpl" rev="2.9.1" conf="main->default" />
+    <dependency org="commons-io" name="commons-io" rev="1.4" conf="test->default" />
+    <dependency org="junit" name="junit" rev="4.8.1" conf="test->default" />
+  </dependencies>
+
+</ivy-module>

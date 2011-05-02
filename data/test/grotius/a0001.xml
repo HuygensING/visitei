@@ -1,0 +1,24 @@
+<TEI>
+<teiHeader>
+<meta type="zender" value="groo001"/>
+<meta type="ontvanger" value="meur006"/>
+<meta type="zendplaats" value="?"/>
+<meta type="ontvangplaats" value="leide001"/>
+<meta type="date" value="15970628"/>
+<meta type="language" value="latin"/>
+</teiHeader>
+<text>
+<body>
+<div type="letter" id="a0001">
+<head>1. <date>[1597] Juni 28</date>. Aan <name type="person">Joh. Meursius</name>.</head>
+<p>Hugeianus Grotius Iohanni Meursio.</p>
+<p><seg type="incipit">Magno me delectarunt opere, mi Meursi, literae tuae mellitissimae, praesertim</seg> vero lectiones quas iudicii mei facis, quae adeo placuerunt ut nihil supra. Remunerabor te hisce nostris quas forte non omnino improbabis. Sunt eae in Madaurensem quo usus sum prout eum cudit Faber noster; eius editionis paginas adiicio. Primum pagina 6. Lib. de Mundo: <hi rend="i">Minores vero ultra Indos Taprobana et Phebol</hi> cte. V.C.: <hi rend="i">Indros Bromanae et Zoxae</hi>. ex Aristotele liquet legendum <hi rend="i">Indos Taprobanem et Loxen</hi>. Pag. 45. de Philo. <hi rend="i">Iuridicialis illa medicinae pars est nam morbis animae medetur, sicut illa corporis.</hi> Non dubitabis, quin legendum sit, <hi rend="i">Medicinae par est.</hi> Ib. infra. <hi rend="i">Sic haec scientiam mutata iuris simulat quidem</hi> etc. si sensum perspicias facile iudicabis <hi rend="i">imitata</hi> legendum. fol. 51. <hi rend="i">Prius est nocere quam noceri: Quid enim his rebus nocetur quae sunt viliores corporis et externis</hi>?
+<hi rend="i">quae vel imminui possunt vel fraudibus interire, illaesis potioribus, quae ad ipsam attinent animam</hi>. Levia errata hoc pacto restituenda. <hi rend="i">Peius est n. q. noceri: Quid enim! his rebus n. q. s. v. corporeis et externis.</hi> ib. versu a fine tertio, pro <hi rend="i">flores</hi> putem <hi rend="i">dolores</hi> restituendum. In loco illo Apologiae ubi nomina magorum recensentur, quid sibi vult <hi rend="i">Ioanes</hi> aut quis ille? lege meo periculo <hi rend="i">Iamnes. Hismoses</hi> ibidem mihi temere mutandum non videtur; primum quod videam singulis nominibus disiunctivam coniunctionem praeponi, deinde quod Hebraicum quid, aut Chaldaicum sapiat. Est enim (ni fallor) Hismoses vel His-mosis, השומ שיא. Vale et Scriverium nostrum officiose saluta. XXVIII Iunii.</p>
+<p>Ad locum tuum in Macrobio emendatum facit Phurnutus de Mercurio: <hi rend="i">ἀργειϕόντης δέ ἐστιν οἱονεὶ ἀργειϕάντης ἀπὸ τοῦ ἀργῶς πάντα ϕαίνειν, ϰαὶ σαϕηνίζειν, τὸ γὰρ λευϰὸν ἀργεινὸν ἐϰάλουν οἱ παλαιοὶ, ἀπὸ τῆς ϰατὰ τὸ ϕοιτῶ ταχυτῆτος, ϰαὶ γὰρ τὸ ταχὺ ἀργὸν λέγεται ϰατὰ ἀντίϕρασιν</hi>.</p>
+</div>
+<div type="para">
+<p><hi rend="i">Adres:</hi> Iuveni lectissimo, mihi Musisque dilectissimo Iano Meursio. In den IJserman op de Breestraet tot Leyden. Den boode zijn loon.</p>
+</div>
+</body>
+</text>
+</TEI>
