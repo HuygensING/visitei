@@ -125,13 +125,13 @@
   </target>
 
   <target name="main-compile" depends="classpaths">
-    <javac srcdir="${main.src.dir}" destdir="${main.bin.dir}">
+    <javac srcdir="${main.src.dir}" destdir="${main.bin.dir}" includeantruntime="false">
       <classpath refid="main.compile.classpath"/>
     </javac>    
   </target>
 
   <target name="test-compile" depends="main-compile">
-    <javac srcdir="${test.src.dir}" destdir="${test.bin.dir}">
+    <javac srcdir="${test.src.dir}" destdir="${test.bin.dir}" includeantruntime="false">
       <classpath refid="test.compile.classpath"/>
     </javac>
   </target>
