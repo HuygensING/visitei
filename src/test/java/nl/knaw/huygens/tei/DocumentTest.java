@@ -1,5 +1,7 @@
 package nl.knaw.huygens.tei;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import org.junit.Assert;
@@ -54,6 +56,33 @@ public class DocumentTest {
   @Test
   public void twoNestedElements() {
     testGetElementsByTagName("<root><x><name><x/><name/></name></x></root>", "name", 2);
+  }
+
+  @Test
+  public void testElementPositions() {
+    String xml = "<root><x><name>\n" + //
+        "<x/><name/></name></x><text>hello\n" + //
+        " world</text></root>";
+    Document document = Document.createFromXml(xml);
+    List<Element> elements = document.getElementsByTagName("name");
+
+    Element first = elements.get(0);
+    assertEquals(1, first.getStartLine());
+    assertEquals(16, first.getStartColumn());
+    assertEquals(2, first.getEndLine());
+    assertEquals(19, first.getEndColumn());
+
+    Element second = elements.get(1);
+    assertEquals(2, second.getStartLine());
+    assertEquals(12, second.getStartColumn());
+    assertEquals(2, second.getEndLine());
+    assertEquals(12, second.getEndColumn());
+
+    assertEquals(1, document.getStartLine());
+    assertEquals(1, document.getStartColumn());
+    assertEquals(3, document.getEndLine());
+    assertEquals(21, document.getEndColumn());
+
   }
 
 }

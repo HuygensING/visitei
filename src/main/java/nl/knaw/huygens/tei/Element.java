@@ -86,6 +86,24 @@ public class Element extends Node {
     return this.name.equals(name);
   }
 
+  /**
+   * @return the line number in the source xml where the start tag of this element ends, if available;
+   *         -1 otherwise
+   */
+  @Override
+  public int getStartLine() {
+    return super.getStartLine();
+  }
+
+  /**
+   * @return the column number in the source xml where the start tag of this element ends, if available;
+   *         -1 otherwise
+   */
+  @Override
+  public int getStartColumn() {
+    return super.getStartColumn();
+  }
+
   // --- Attributes ----------------------------------------------------
 
   public static final String LANGUAGE = "lang";

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.xerces.parsers.SAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
 
@@ -16,6 +17,7 @@ public class DocumentFactory extends DefaultHandler2 {
 
   private final Deque<Element> elementStack;
   private final Document document;
+  private Locator locator;
 
   public DocumentFactory(String xml) {
     elementStack = new ArrayDeque<Element>();
@@ -52,15 +54,23 @@ public class DocumentFactory extends DefaultHandler2 {
   // --- content handler section ---------------------------------------
 
   @Override
-  public void startDocument() throws SAXException {}
+  public void startDocument() throws SAXException {
+    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    setStartPosition(document);
+  }
 
   @Override
-  public void endDocument() throws SAXException {}
+  public void endDocument() throws SAXException {
+    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    setEndPosition(document);
+  }
 
   @Override
   public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
+    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Map<String, String> attributes = XmlUtils.convertSAXAttributes(attrs);
     Element element = new Element(name, attributes);
+    setStartPosition(element);
     Element parent = elementStack.peek();
     if (parent == null) {
       document.setRoot(element);
@@ -73,13 +83,31 @@ public class DocumentFactory extends DefaultHandler2 {
 
   @Override
   public void endElement(String uri, String localName, String name) throws SAXException {
-    elementStack.pop();
+    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    Element e = elementStack.pop();
+    setEndPosition(e);
   }
 
   @Override
   public void characters(char[] chars, int start, int length) throws SAXException {
+    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Text text = new Text(chars, start, length);
+    setEndPosition(text);
     elementStack.peek().addNode(text);
   }
 
+  @Override
+  public void setDocumentLocator(final Locator _locator) {
+    locator = _locator;
+  }
+
+  private void setStartPosition(Node node) {
+    node.setStartLine(locator.getLineNumber());
+    node.setStartColumn(locator.getColumnNumber());
+  }
+
+  private void setEndPosition(Node node) {
+    node.setEndLine(locator.getLineNumber());
+    node.setEndColumn(locator.getColumnNumber());
+  }
 }

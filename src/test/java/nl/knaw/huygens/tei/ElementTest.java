@@ -94,4 +94,11 @@ public class ElementTest {
     Assert.assertTrue(new Element("name", Element.TYPE, "value").hasType("value"));
   }
 
+  @Test
+  public void testGeneratedElementHasNoLocation() {
+    Element element = new Element("generated");
+    Assert.assertEquals(-1, element.getStartLine());
+    Assert.assertEquals(-1, element.getStartColumn());
+  }
+
 }
