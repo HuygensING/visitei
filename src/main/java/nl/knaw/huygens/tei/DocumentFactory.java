@@ -55,19 +55,19 @@ public class DocumentFactory extends DefaultHandler2 {
 
   @Override
   public void startDocument() throws SAXException {
-    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     setStartPosition(document);
   }
 
   @Override
   public void endDocument() throws SAXException {
-    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     setEndPosition(document);
   }
 
   @Override
   public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
-    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Map<String, String> attributes = XmlUtils.convertSAXAttributes(attrs);
     Element element = new Element(name, attributes);
     setStartPosition(element);
@@ -83,22 +83,22 @@ public class DocumentFactory extends DefaultHandler2 {
 
   @Override
   public void endElement(String uri, String localName, String name) throws SAXException {
-    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Element e = elementStack.pop();
     setEndPosition(e);
   }
 
   @Override
   public void characters(char[] chars, int start, int length) throws SAXException {
-    //    System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
+    // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Text text = new Text(chars, start, length);
     setEndPosition(text);
     elementStack.peek().addNode(text);
   }
 
   @Override
-  public void setDocumentLocator(final Locator _locator) {
-    locator = _locator;
+  public void setDocumentLocator(Locator locator) {
+    this.locator = locator;
   }
 
   private void setStartPosition(Node node) {
@@ -110,4 +110,5 @@ public class DocumentFactory extends DefaultHandler2 {
     node.setEndLine(locator.getLineNumber());
     node.setEndColumn(locator.getColumnNumber());
   }
+
 }

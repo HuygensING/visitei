@@ -80,6 +80,16 @@ public class ElementTest {
   }
 
   @Test
+  public void testSetLanguage() {
+    Element element = new Element("name");
+    Assert.assertEquals("", element.getLanguage());
+    element.setLanguage("fr");
+    Assert.assertEquals("fr", element.getLanguage());
+    element.setLanguage("la");
+    Assert.assertEquals("la", element.getLanguage());
+  }
+
+  @Test
   public void testHasRendition() {
     Assert.assertFalse(new Element("name").hasRendition());
     Assert.assertFalse(new Element("name", Element.RENDITION, "").hasRendition());

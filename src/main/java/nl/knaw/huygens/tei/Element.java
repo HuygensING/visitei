@@ -153,6 +153,10 @@ public class Element extends Node {
     return hasAttribute(LANGUAGE, value);
   }
 
+  public void setLanguage(String value) {
+    setAttribute(LANGUAGE, value);
+  }
+
   public String getRendition() {
     return getAttribute(RENDITION);
   }

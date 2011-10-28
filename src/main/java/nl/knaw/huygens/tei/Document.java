@@ -16,6 +16,10 @@ public class Document extends Node {
     root = null;
   }
 
+  public Element getRoot() {
+    return root;
+  }
+
   public void setRoot(Element element) {
     root = element;
   }

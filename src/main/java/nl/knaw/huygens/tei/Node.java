@@ -4,6 +4,7 @@ package nl.knaw.huygens.tei;
  * Ancestor for document, elements and text in the DOM.
  */
 public abstract class Node {
+
   public abstract Traversal accept(Visitor visitor);
 
   // locator info
@@ -43,4 +44,5 @@ public abstract class Node {
   public int getEndColumn() {
     return endColumn;
   }
+
 }
