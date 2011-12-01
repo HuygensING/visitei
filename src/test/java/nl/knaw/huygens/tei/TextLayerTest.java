@@ -64,6 +64,12 @@ public class TextLayerTest {
   }
 
   @Test
+  public void testOpenTagWithAmpsersand() {
+    layer.addOpenTag(new Element("ref", "target", "http://www.host.nl/nnbw?source=1&page_number=11"));
+    Assert.assertEquals("<ref target=\"http://www.host.nl/nnbw?source=1&amp;page_number=11\">", layer.toString());
+  }
+
+  @Test
   public void testCloseTagByName() {
     layer.addCloseTag("tag");
     Assert.assertEquals("</tag>", layer.toString());

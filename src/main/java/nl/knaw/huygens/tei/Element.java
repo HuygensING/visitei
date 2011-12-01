@@ -199,9 +199,32 @@ public class Element extends Node {
     builder.append('<').append(name);
     for (Map.Entry<String, String> entry : attributes.entrySet()) {
       builder.append(' ').append(entry.getKey()).append('=');
-      builder.append('"').append(entry.getValue()).append('"');
+      builder.append('"');
+      appendAttributeValue(builder, entry.getValue());
+      builder.append('"');
     }
     builder.append(emptyTag ? "/>" : ">");
+  }
+
+  private void appendAttributeValue(StringBuilder builder, String value) {
+    int n = value.length();
+    for (int i = 0; i < n; i++) {
+      char c = value.charAt(i);
+      switch (c) {
+      case '<':
+        builder.append("&lt;");
+        break;
+      case '>':
+        builder.append("&gt;");
+        break;
+      case '&':
+        builder.append("&amp;");
+        break;
+      default:
+        builder.append(c);
+        break;
+      }
+    }
   }
 
 }
