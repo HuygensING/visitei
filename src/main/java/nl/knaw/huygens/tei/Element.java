@@ -78,6 +78,10 @@ public class Element extends Node {
     return (nodes.size() == 0);
   }
 
+  public List<Node> getNodes() {
+    return nodes;
+  }
+
   public String getName() {
     return name;
   }
