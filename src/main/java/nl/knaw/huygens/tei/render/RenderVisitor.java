@@ -41,4 +41,8 @@ public class RenderVisitor extends DelegatingVisitor<XmlContext> {
     addElementHandler(new SegmentHandler(), "seg");
   }
 
+  public String getResult() {
+    return getContext().getResult();
+  }
+
 }
