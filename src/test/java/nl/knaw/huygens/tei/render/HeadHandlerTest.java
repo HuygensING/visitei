@@ -18,28 +18,18 @@ public class HeadHandlerTest {
   }
 
   @Test
-  public void testNoLetterHeadWithoutRend() {
+  public void testHeadWithoutRend() {
     Assert.assertEquals("<h3>text</h3>", process("<div type=\"section\"><head>text</head></div>"));
   }
 
   @Test
-  public void testNoLetterHeadWithRend() {
+  public void testHeadWithRend() {
     Assert.assertEquals("<h4>text</h4>", process("<div type=\"section\"><head rend=\"h4\">text</head></div>"));
   }
 
   @Test
-  public void testLetterHead() {
-    Assert.assertEquals("", process("<div type=\"letter\"><head>text</head></div>"));
-  }
-
-  @Test
-  public void testLetterHeadWithExtra() {
-    Assert.assertEquals("xyz", process("<div type=\"letter\"><p>xyz</p><head>text</head></div>"));
-  }
-
-  @Test
-  public void testOtherHead() {
-    Assert.assertEquals("<h3>text</h3>", process("<div type=\"letter\"><div><head>text</head></div></div>"));
+  public void testHeadWithLang() {
+    Assert.assertEquals("<h3 lang=\"la\">text</h3>", process("<div><head lang=\"la\">text</head></div>"));
   }
 
 }
