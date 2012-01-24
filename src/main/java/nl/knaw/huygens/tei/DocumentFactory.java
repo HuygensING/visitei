@@ -93,7 +93,10 @@ public class DocumentFactory extends DefaultHandler2 {
     // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Text text = new Text(chars, start, length);
     setEndPosition(text);
-    elementStack.peek().addNode(text);
+
+    Element parent = elementStack.peek();
+    parent.addNode(text);
+    text.setParent(parent);
   }
 
   @Override
