@@ -111,4 +111,40 @@ public class ElementTest {
     Assert.assertEquals(-1, element.getStartColumn());
   }
 
+  @Test
+  public void testMissingIntAttribute() {
+    Element element = new Element("name", "key", "37");
+    Assert.assertEquals(42, element.getIntAttribute("missing", 42));
+  }
+
+  @Test
+  public void testInvalidIntAttribute() {
+    Element element = new Element("name", "key", "text");
+    Assert.assertEquals(42, element.getIntAttribute("key", 42));
+  }
+
+  @Test
+  public void testValidIntAttribute() {
+    Element element = new Element("name", "key", "37");
+    Assert.assertEquals(37, element.getIntAttribute("key", 42));
+  }
+
+  @Test
+  public void testMissingDoubleAttribute() {
+    Element element = new Element("name", "key", "33.3");
+    Assert.assertEquals(42.0, element.getDoubleAttribute("missing", 42.0), 0.001);
+  }
+
+  @Test
+  public void testInvalidDoubleAttribute() {
+    Element element = new Element("name", "key", "text");
+    Assert.assertEquals(42.0, element.getDoubleAttribute("key", 42.0), 0.001);
+  }
+
+  @Test
+  public void testValidDoubleAttribute() {
+    Element element = new Element("name", "key", "33.3");
+    Assert.assertEquals(33.3, element.getDoubleAttribute("key", 42.0), 0.001);
+  }
+
 }

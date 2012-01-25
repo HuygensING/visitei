@@ -124,6 +124,38 @@ public class Element extends Node {
     return (value != null) ? value : defaultValue;
   }
 
+  /**
+   * Returns an integer attribute value, or the specified default value
+   * if the attribute is missing or if conversion to integer fails.
+   */
+  public int getIntAttribute(String key, int defaultValue) {
+    String value = attributes.get(key);
+    if (value != null) {
+      try {
+        return Integer.valueOf(value);
+      } catch (NumberFormatException e) {
+        // ignore
+      }
+    }
+    return defaultValue;
+  }
+
+  /**
+   * Returns a double attribute value, or the specified default value
+   * if the attribute is missing or if conversion to double fails.
+   */
+  public double getDoubleAttribute(String key, double defaultValue) {
+    String value = attributes.get(key);
+    if (value != null) {
+      try {
+        return Double.valueOf(value);
+      } catch (NumberFormatException e) {
+        // ignore
+      }
+    }
+    return defaultValue;
+  }
+
   public boolean hasAttribute(String key) {
     String value = attributes.get(key);
     return (value != null) && (value.length() != 0);
