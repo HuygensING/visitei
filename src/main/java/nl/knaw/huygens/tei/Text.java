@@ -2,7 +2,7 @@ package nl.knaw.huygens.tei;
 
 public class Text extends Node {
 
-  private final String text;
+  private String text;
   private Element parent;
 
   public Text(char[] chars, int start, int length) {
@@ -22,7 +22,7 @@ public class Text extends Node {
     return visitor.visitText(this);
   }
 
-  // --- Structure -----------------------------------------------------
+  // -------------------------------------------------------------------
 
   public Element getParent() {
     return parent;
@@ -32,10 +32,12 @@ public class Text extends Node {
     this.parent = parent;
   }
 
-  // -------------------------------------------------------------------
-
   public String getText() {
     return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
   }
 
   @Override

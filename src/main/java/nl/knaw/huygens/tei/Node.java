@@ -5,13 +5,15 @@ package nl.knaw.huygens.tei;
  */
 public abstract class Node {
 
+  public static final int UNSPECIFIED = -1;
+
   public abstract Traversal accept(Visitor visitor);
 
   // locator info
-  private int startLine = -1;
-  private int startColumn = -1;
-  private int endLine = -1;
-  private int endColumn = -1;
+  private int startLine = UNSPECIFIED;
+  private int startColumn = UNSPECIFIED;
+  private int endLine = UNSPECIFIED;
+  private int endColumn = UNSPECIFIED;
 
   protected void setStartLine(int lineNumber) {
     startLine = lineNumber;
