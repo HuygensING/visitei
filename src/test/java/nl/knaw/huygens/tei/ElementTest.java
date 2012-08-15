@@ -147,4 +147,16 @@ public class ElementTest {
     Assert.assertEquals(33.3, element.getDoubleAttribute("key", 42.0), 0.001);
   }
 
+  @Test
+  public void testHasParentWithName() {
+    Element element = new Element("name");
+    Assert.assertFalse(element.hasParentWithName("parent"));
+    Element parent = new Element("name");
+    element.setParent(parent);
+    Assert.assertFalse(element.hasParentWithName("parent"));
+    parent = new Element("parent");
+    element.setParent(parent);
+    Assert.assertTrue(element.hasParentWithName("parent"));
+  }
+
 }

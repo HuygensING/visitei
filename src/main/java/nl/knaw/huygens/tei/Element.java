@@ -66,6 +66,10 @@ public class Element extends Node {
     this.parent = parent;
   }
 
+  public boolean hasParentWithName(String name) {
+    return (parent != null) && parent.hasName(name);
+  }
+
   public void addNode(Node node) {
     nodes.add(node);
   }
