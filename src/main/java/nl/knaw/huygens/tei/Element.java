@@ -20,7 +20,7 @@ public class Element extends Node {
 
   // -------------------------------------------------------------------
 
-  private final String name;
+  private String name;
   private final Map<String, String> attributes;
 
   private Element parent;
@@ -88,6 +88,10 @@ public class Element extends Node {
 
   public String getName() {
     return name;
+  }
+
+  public void setName(String value) {
+    name = value;
   }
 
   public boolean hasName(String name) {
@@ -168,6 +172,10 @@ public class Element extends Node {
   public boolean hasAttribute(String key, String value) {
     // TODO decide whether to check for null value
     return value.equals(attributes.get(key));
+  }
+
+  public void removeAttribute(String key) {
+    attributes.remove(key);
   }
 
   public void setAttribute(String key, String value) {
