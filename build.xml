@@ -7,6 +7,8 @@
 
   <!-- Load properties from file, if it exists -->
   <property file="build.properties" />
+  <!-- Ant 1.8.2+ doesn't allow system properties to be overridden... -->
+  <property name="home" value="${user.home}"/>
 
   <property name="project.name" value="visitei"/>
   <property name="project.version" value="0.4.2-SNAPSHOT"/>
@@ -14,7 +16,7 @@
 
   <property name="build.dir" location="build" />
   <property name="dist.dir" location="dist" />
-	<property name="javadoc.dir" location="${dist.dir}/javadoc" />
+  <property name="javadoc.dir" location="${dist.dir}/javadoc" />
 
   <property name="main.src.dir" location="src/main/java" />
   <property name="main.bin.dir" location="${build.dir}/main/classes" />
@@ -36,7 +38,7 @@
 
   <property name="ivy.jar.version" value="2.2.0"/>
   <property name="ivy.jar.name" value="ivy-${ivy.jar.version}.jar" />
-  <property name="ivy.home" value="${user.home}/.ivy2" />
+  <property name="ivy.home" value="${home}/.ivy2" />
   <available property="ivy.installed" file="${ivy.home}/${ivy.jar.name}" />
 
   <!-- Auto-installs the ivy jar into ~/.ivy2 if not present -->
@@ -47,10 +49,11 @@
 
   <!-- Initializes ivy -->
   <target name="ivy-init" depends="ivy-install,init">
+  	<echo>Ivy home = '${ivy.home}'</echo>
     <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.home}/${ivy.jar.name}"/>
     <property name="ivy.lib.dir" location="build/ivy/lib"/>
     <!-- Override if you want another repository -->
-    <property name="publish.repo" value="${user.home}/.m2/repository"/>
+    <property name="publish.repo" value="${home}/.m2/repository"/>
     <ivy:resolve/>
   </target>
 
@@ -115,7 +118,7 @@
   </target>
 
   <target name="main-compile" depends="classpaths">
-    <javac srcdir="${main.src.dir}" destdir="${main.bin.dir}" includeantruntime="false">
+    <javac srcdir="${main.src.dir}" destdir="${main.bin.dir}" includeantruntime="false" debug="on">
       <classpath refid="main.compile.classpath"/>
     </javac>    
   </target>

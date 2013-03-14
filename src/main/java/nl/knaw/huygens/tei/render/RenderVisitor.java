@@ -16,7 +16,7 @@ public class RenderVisitor extends DelegatingVisitor<XmlContext> {
 
     // Graphics: <figure>, <figDesc>, <graphic>
     addElementHandler(new FigureHandler(), "figure");
-    addElementHandler(new FilterElementHandler(), "figDesc");
+    addElementHandler(new FilterElementHandler<XmlContext>(), "figDesc");
     addElementHandler(new GraphicHandler(imageUrlResolver), "graphic");
 
     // Lists: <list>, <item>, <label>
