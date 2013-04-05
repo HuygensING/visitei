@@ -5,7 +5,7 @@
     to the Maven SNAPSHOT convention, as that it works well
     for publishing local test builds to ~/.m2/repository.
   -->
-  <property name="revision" value="0.4.2-SNAPSHOT" override="false"/>
+  <property name="revision" value="0.4.3-SNAPSHOT" override="false"/>
 
   <!-- "default" is defined later in the file. -->
   <settings defaultResolver="default" />
