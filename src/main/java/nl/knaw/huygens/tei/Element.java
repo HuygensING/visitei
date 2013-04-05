@@ -1,8 +1,12 @@
 package nl.knaw.huygens.tei;
 
+import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 public class Element extends Node {
@@ -273,6 +277,20 @@ public class Element extends Node {
         break;
       }
     }
+  }
+
+  public Set<String> getAttributeNames() {
+    return this.attributes.keySet();
+  }
+
+  @Override
+  public String toString() {
+    List<String> attributes1 = Lists.newArrayList();
+    for (String attributeName : this.attributes.keySet()) {
+      attributes1.add(MessageFormat.format(" {0}=\"{1}\"", attributeName, getAttribute(attributeName)));
+    }
+    Collections.sort(attributes1);
+    return MessageFormat.format("<{0}{1}>", getName(), Joiner.on("").join(attributes1));
   }
 
 }

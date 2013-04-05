@@ -1,5 +1,7 @@
 package nl.knaw.huygens.tei;
 
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -145,6 +147,16 @@ public class ElementTest {
   public void testValidDoubleAttribute() {
     Element element = new Element("name", "key", "33.3");
     Assert.assertEquals(33.3, element.getDoubleAttribute("key", 42.0), 0.001);
+  }
+
+  @Test
+  public void testGetAttributeNames() {
+    Element element = new Element("name", "key1", "value1");
+    element.setAttribute("key2", "value2");
+    Set<String> attributeNames = element.getAttributeNames();
+    Assert.assertEquals(2, attributeNames.size());
+    Assert.assertTrue(attributeNames.contains("key1"));
+    Assert.assertTrue(attributeNames.contains("key2"));
   }
 
   @Test
