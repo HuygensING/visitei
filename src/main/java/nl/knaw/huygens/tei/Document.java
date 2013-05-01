@@ -7,10 +7,20 @@ import com.google.common.collect.Lists;
 public class Document extends Node {
   private Element root;
 
+  /**
+   * @deprecated  use {@link #createFromXml(xml,preserveNamespacePrefix)} to explicitly indicate whether to preserve the namespace prefix for an Elements attributes
+   */
+  @Deprecated
   public static Document createFromXml(String xml) {
     return new DocumentFactory(xml, false).getDocument();
   }
 
+  /**
+   * 
+   * @param xml  xml source
+   * @param preserveNamespacePrefix preserve the namespace prefix for an Elements attributes
+   * @return the Document
+   */
   public static Document createFromXml(String xml, boolean preserveNamespacePrefix) {
     return new DocumentFactory(xml, preserveNamespacePrefix).getDocument();
   }
