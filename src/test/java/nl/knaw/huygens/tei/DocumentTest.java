@@ -59,6 +59,46 @@ public class DocumentTest {
   }
 
   @Test
+  public void testNameSpace1() {
+    String xml = "<root><div xml:id=\"A\">a</div></root>";
+    testGetElementsByTagName(xml, "div", 1);
+    Document document = Document.createFromXml(xml, true);
+    List<Element> elements = document.getElementsByTagName("div");
+    Element element = elements.get(0);
+    assertEquals("", element.getAttribute("id"));
+    assertEquals("A", element.getAttribute("xml:id"));
+  }
+
+  @Test
+  public void testNameSpace2() {
+    String xml = "<root xmlns:my=\"http://whatever.com/\"><div xml:id=\"xml\" id=\"id\" my:id=\"my\">a</div></root>";
+    Document document = Document.createFromXml(xml, true);
+    List<Element> elements = document.getElementsByTagName("div");
+    Element element = elements.get(0);
+    assertEquals("id", element.getAttribute("id"));
+    assertEquals("xml", element.getAttribute("xml:id"));
+    assertEquals("my", element.getAttribute("my:id"));
+
+    //    document = Document.createFromXml(xml);
+    //    elements = document.getElementsByTagName("div");
+    //    element = elements.get(0);
+    //    assertEquals("xml", element.getAttribute("xml:id"));
+    //    assertEquals("my", element.getAttribute("my:id"));
+    //    assertEquals("id", element.getAttribute("id"));
+
+  }
+
+  @Test
+  public void testNameSpace3() {
+    String xml = "<root xmlns:my=\"http://whatever.com/\"><div xml:id=\"xml\" id=\"id\" my:id=\"my\">a</div></root>";
+    Document document = Document.createFromXml(xml, true);
+    List<Element> elements = document.getElementsByTagName("root");
+    assertEquals(1, elements.size());
+    Element element = elements.get(0);
+    assertEquals("http://whatever.com/", element.getAttribute("xmlns:my"));
+  }
+
+  @Test
   public void testElementPositions() {
     String xml = "<root><x><name>\n" + //
         "<x/><name/></name></x><text>hello\n" + //

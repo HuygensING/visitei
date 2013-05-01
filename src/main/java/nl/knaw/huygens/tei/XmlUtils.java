@@ -18,10 +18,10 @@ public class XmlUtils {
     return map;
   }
 
-  public static Map<String, String> convertSAXAttributes(Attributes attributes) {
+  public static Map<String, String> convertSAXAttributes(Attributes attributes, boolean useQualifiedName) {
     Map<String, String> map = Maps.newTreeMap();
     for (int i = 0; i < attributes.getLength(); i++) {
-      String key = attributes.getLocalName(i);
+      String key = useQualifiedName ? attributes.getQName(i) : attributes.getLocalName(i);
       String value = attributes.getValue(i);
       map.put(key, value);
     }

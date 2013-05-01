@@ -5,12 +5,15 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 public class Document extends Node {
+  private Element root;
 
   public static Document createFromXml(String xml) {
-    return new DocumentFactory(xml).getDocument();
+    return new DocumentFactory(xml, false).getDocument();
   }
 
-  private Element root;
+  public static Document createFromXml(String xml, boolean preserveNamespacePrefix) {
+    return new DocumentFactory(xml, preserveNamespacePrefix).getDocument();
+  }
 
   public Document() {
     root = null;

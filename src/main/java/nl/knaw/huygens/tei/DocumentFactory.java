@@ -5,6 +5,8 @@ import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.xerces.parsers.SAXParser;
 import org.xml.sax.Attributes;
@@ -13,13 +15,19 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
 
+import com.google.common.collect.Maps;
+
 public class DocumentFactory extends DefaultHandler2 {
 
   private final Deque<Element> elementStack;
   private final Document document;
   private Locator locator;
+  private boolean preserveNameSpacePrefix;
 
-  public DocumentFactory(String xml) {
+  private Map<String, String> prefixMap = Maps.newHashMap();
+
+  public DocumentFactory(String xml, boolean _preserveNamespacePrefix) {
+    preserveNameSpacePrefix = _preserveNamespacePrefix;
     elementStack = new ArrayDeque<Element>();
     document = new Document();
 
@@ -66,11 +74,24 @@ public class DocumentFactory extends DefaultHandler2 {
   }
 
   @Override
+  public void startPrefixMapping(String prefix, String uri) throws SAXException {
+    super.startPrefixMapping(prefix, uri);
+    prefixMap.put(prefix, uri);
+  }
+
+  @Override
   public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
     // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
-    Map<String, String> attributes = XmlUtils.convertSAXAttributes(attrs);
+    Map<String, String> attributes = XmlUtils.convertSAXAttributes(attrs, preserveNameSpacePrefix);
     Element element = new Element(name, attributes);
     setStartPosition(element);
+    if (preserveNameSpacePrefix && !prefixMap.isEmpty()) {
+      Set<Entry<String, String>> entrySet = this.prefixMap.entrySet();
+      for (Entry<String, String> entry : entrySet) {
+        element.setAttribute("xmlns:" + entry.getKey(), entry.getValue());
+      }
+      prefixMap.clear();
+    }
     Element parent = elementStack.peek();
     if (parent == null) {
       document.setRoot(element);
