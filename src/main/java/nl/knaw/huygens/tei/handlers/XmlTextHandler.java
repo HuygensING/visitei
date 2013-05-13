@@ -1,8 +1,8 @@
 package nl.knaw.huygens.tei.handlers;
 
-import nl.knaw.huygens.tei.XmlContext;
+import nl.knaw.huygens.tei.Context;
 
-public class XmlTextHandler extends DefaultTextHandler<XmlContext> {
+public class XmlTextHandler<T extends Context> extends DefaultTextHandler<T> {
 
   @Override
   protected String filterText(String text) {
