@@ -1,16 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>VisiTEI</groupId>
-  <artifactId>VisiTEI</artifactId>
+  <groupId>nl.knaw.huygens</groupId>
+  <artifactId>visitei</artifactId>
   <version>0.4.5</version>
   <inceptionYear>2011</inceptionYear>
+  <name>VisiTEI</name>
 
   <properties>
     <encoding>UTF-8</encoding>
     <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
     <jdk.version>1.6</jdk.version>
+
+    <maven-license.version>1.8</maven-license.version>
   </properties>
 
   <dependencies>
@@ -57,8 +60,60 @@
           <target>${jdk.version}</target>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>${maven-license.version}</version>
+        <configuration>
+          <licenseName>gpl_v3</licenseName>
+          <sectionDelimiter>=======</sectionDelimiter>
+          <canUpdateCopyright>true</canUpdateCopyright>
+          <canUpdateDescription>true</canUpdateDescription>
+        </configuration>
+        <executions>
+          <execution>
+            <id>download-licenses</id>
+            <goals>
+              <goal>download-licenses</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
+  <organization>
+    <name>Huygens ING</name>
+    <url>http://www.huygens.knaw.nl/</url>
+  </organization>
+
+  <prerequisites>
+    <maven>3.0</maven>
+  </prerequisites>
+
+  <distributionManagement>
+    <repository>
+      <id>maven.huygens</id>
+      <name>Huygens Maven Repository</name>
+      <url>${huygens-repo}</url>
+    </repository>
+    <!-- use the following if you ARE using a snapshot version. -->
+    <snapshotRepository>
+      <id>maven.huygens</id>
+      <name>Huygens Maven Repository</name>
+      <url>${huygens-repo}</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License</name>
+      <url>http://www.gnu.org/licenses/gpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <scm>
     <connection>scm:git:git@github.com:huygensING/VisiTEI.git</connection>
