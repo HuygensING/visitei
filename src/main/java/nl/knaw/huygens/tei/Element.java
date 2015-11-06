@@ -126,6 +126,10 @@ public class Element extends Node {
   public static final String RENDITION = "rend";
   public static final String TYPE = "type";
 
+  public Map<String, String> getAttributes() {
+    return attributes;
+  }
+
   public String getAttribute(String key) {
     String value = attributes.get(key);
     return (value != null) ? value : "";
