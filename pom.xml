@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.knaw.huygens</groupId>
   <artifactId>visitei</artifactId>
-  <version>0.4.5</version>
+  <version>0.4.6-SNAPSHOT</version>
   <inceptionYear>2011</inceptionYear>
   <name>VisiTEI</name>
 
