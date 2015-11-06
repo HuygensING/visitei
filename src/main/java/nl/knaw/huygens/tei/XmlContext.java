@@ -10,12 +10,12 @@ package nl.knaw.huygens.tei;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -39,6 +39,7 @@ public class XmlContext implements Context {
 
   /**
    * Constructs a new <code>XmlContext</code>.
+   *
    * @param defaultLanguage the code of the default language, "?" if unknown.
    * @param targetLanguage the code of target language, may be <code>null</code>.
    */
@@ -56,7 +57,10 @@ public class XmlContext implements Context {
 
   // --- Language ------------------------------------------------------
 
-  /** Updates the current language when a language scope starts. */
+  /** Updates the current language when a language scope starts.
+   *
+   *  @param element the Element
+   */
   public void openLanguageScope(Element element) {
     if (element.hasLanguage()) {
       String language = element.getLanguage();
@@ -64,14 +68,19 @@ public class XmlContext implements Context {
     }
   }
 
-  /** Updates the current language when a language scope ends. */
+  /** Updates the current language when a language scope ends.
+   *
+   *  @param element the Element
+   */
   public void closeLanguageScope(Element element) {
     if (element.hasLanguage()) {
       languageStack.pop();
     }
   }
 
-  /** Returns the current language. */
+  /**
+   * @return the current language.
+   */
   public String getLanguage() {
     return languageStack.peek();
   }
