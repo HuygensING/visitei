@@ -1,11 +1,10 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class QuoteHandlerTest {
 
@@ -19,22 +18,22 @@ public class QuoteHandlerTest {
 
   @Test
   public void testNoQuote() {
-    Assert.assertEquals("text", process("<seg>text</seg>"));
+    assertEquals("text", process("<seg>text</seg>"));
   }
 
   @Test
   public void testPlainQuote() {
-    Assert.assertEquals("&#8216;text&#8217;", process("<q>text</q>"));
+    assertEquals("&#8216;text&#8217;", process("<q>text</q>"));
   }
 
   @Test
   public void testOtherQuote() {
-    Assert.assertEquals("&#8216;text&#8217;", process("<q rend=\"x\">text</q>"));
+    assertEquals("&#8216;text&#8217;", process("<q rend=\"x\">text</q>"));
   }
 
   @Test
   public void testBlockQuote() {
-    Assert.assertEquals("<div class=\"blockquote\">text</div>", process("<q rend=\"bq\">text</q>"));
+    assertEquals("<div class=\"blockquote\">text</div>", process("<q rend=\"bq\">text</q>"));
   }
 
 }

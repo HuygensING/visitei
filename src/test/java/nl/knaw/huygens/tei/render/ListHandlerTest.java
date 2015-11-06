@@ -1,11 +1,10 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class ListHandlerTest {
 
@@ -19,19 +18,19 @@ public class ListHandlerTest {
 
   @Test
   public void testNoList() {
-    Assert.assertEquals("text", process("<seg>text</seg>"));
+    assertEquals("text", process("<seg>text</seg>"));
   }
 
   @Test
   public void testListWithoutLabels() {
-    Assert.assertEquals("<ul><li>a</li><li>b</li></ul>", process("<list><item>a</item><item>b</item></list>"));
+    assertEquals("<ul><li>a</li><li>b</li></ul>", process("<list><item>a</item><item>b</item></list>"));
   }
 
   @Test
   public void testListWithLabels() {
     String xml = "<list><label>1.</label><item>a</item><label>2.</label><item>b</item></list>";
     String rendered = "<ul><li><span class=\"listLabel\">1.</span>a</li><li><span class=\"listLabel\">2.</span>b</li></ul>";
-    Assert.assertEquals(rendered, process(xml));
+    assertEquals(rendered, process(xml));
   }
 
 }

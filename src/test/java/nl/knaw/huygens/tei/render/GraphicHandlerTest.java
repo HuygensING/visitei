@@ -1,11 +1,11 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class GraphicHandlerTest {
 
@@ -26,24 +26,32 @@ public class GraphicHandlerTest {
 
   @Test
   public void testNoGraphic() {
-    Assert.assertEquals("text", process("<seg>text</seg>"));
+    assertEquals("text", process("<seg>text</seg>"));
   }
 
   @Test
   public void testGraphicWithoutUrl() {
-    Assert.assertEquals("", process("<graphic id=\"test.gif\"/>"));
+    assertEquals("", process("<graphic id=\"test.gif\"/>"));
   }
 
   @Test
   public void testGraphic() {
     // N.B. Order of attributes depends on implementation
-    Assert.assertEquals("<img alt=\"[test.gif]\" src=\"base/test.gif\"/>", process("<graphic url=\"test.gif\"/>"));
+    String result = process("<graphic url=\"test.gif\"/>");
+    assertTrue(result.startsWith("<img "));
+    assertTrue(result.contains(" alt=\"[test.gif]\""));
+    assertTrue(result.contains(" src=\"base/test.gif\""));
+    assertTrue(result.endsWith("/>"));
   }
 
   @Test
   public void testGraphicWithContent() {
     // N.B. Order of attributes depends on implementation
-    Assert.assertEquals("<img alt=\"[test.gif]\" src=\"base/test.gif\"/>", process("<graphic url=\"test.gif\">text</graphic>"));
+    String result = process("<graphic url=\"test.gif\">text</graphic>");
+    assertTrue(result.startsWith("<img "));
+    assertTrue(result.contains(" alt=\"[test.gif]\""));
+    assertTrue(result.contains(" src=\"base/test.gif\""));
+    assertTrue(result.endsWith("/>"));
   }
 
 }

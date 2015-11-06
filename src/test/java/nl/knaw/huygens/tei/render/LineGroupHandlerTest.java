@@ -1,11 +1,10 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class LineGroupHandlerTest {
 
@@ -19,17 +18,17 @@ public class LineGroupHandlerTest {
 
   @Test
   public void testNoLineGroup() {
-    Assert.assertEquals("text", process("<seg>text</seg>"));
+    assertEquals("text", process("<seg>text</seg>"));
   }
 
   @Test
   public void testLineGroupNoPoem() {
-    Assert.assertEquals("12", process("<lg><l>1</l><l>2</l></lg>"));
+    assertEquals("12", process("<lg><l>1</l><l>2</l></lg>"));
   }
 
   @Test
   public void testLineGroupPoem() {
-    Assert.assertEquals("<div class=\"poem\">1<br/>2<br/></div>", process("<lg type=\"poem\"><l>1</l><l>2</l></lg>"));
+    assertEquals("<div class=\"poem\">1<br/>2<br/></div>", process("<lg type=\"poem\"><l>1</l><l>2</l></lg>"));
   }
 
 }

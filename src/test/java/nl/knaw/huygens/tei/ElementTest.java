@@ -1,8 +1,9 @@
 package nl.knaw.huygens.tei;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import java.util.Set;
-
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class ElementTest {
   }
 
   private void assertRendered(String expected) {
-    Assert.assertEquals(expected, builder.toString());
+    assertEquals(expected, builder.toString());
   }
 
   @Test
@@ -47,7 +48,7 @@ public class ElementTest {
     Element element = new Element("name", "key2", "value2");
     element.setAttribute("key1", "value1");
     element.appendOpenTagTo(builder);
-    assertRendered("<name key1=\"value1\" key2=\"value2\">");
+    assertRendered("<name key2=\"value2\" key1=\"value1\">");
   }
 
   @Test
@@ -67,86 +68,86 @@ public class ElementTest {
 
   @Test
   public void testHasAttribute() {
-    Assert.assertFalse(new Element("name").hasAttribute("key"));
-    Assert.assertFalse(new Element("name", "key", "").hasAttribute("key"));
-    Assert.assertFalse(new Element("name", "other", "value").hasAttribute("key"));
-    Assert.assertTrue(new Element("name", "key", "value").hasAttribute("key"));
+    assertFalse(new Element("name").hasAttribute("key"));
+    assertFalse(new Element("name", "key", "").hasAttribute("key"));
+    assertFalse(new Element("name", "other", "value").hasAttribute("key"));
+    assertTrue(new Element("name", "key", "value").hasAttribute("key"));
   }
 
   @Test
   public void testHasLanguage() {
-    Assert.assertFalse(new Element("name").hasLanguage());
-    Assert.assertFalse(new Element("name", "lang", "").hasLanguage());
-    Assert.assertFalse(new Element("name", "key", "value").hasLanguage());
-    Assert.assertTrue(new Element("name", "lang", "value").hasLanguage());
+    assertFalse(new Element("name").hasLanguage());
+    assertFalse(new Element("name", "lang", "").hasLanguage());
+    assertFalse(new Element("name", "key", "value").hasLanguage());
+    assertTrue(new Element("name", "lang", "value").hasLanguage());
   }
 
   @Test
   public void testSetLanguage() {
     Element element = new Element("name");
-    Assert.assertEquals("", element.getLanguage());
+    assertEquals("", element.getLanguage());
     element.setLanguage("fr");
-    Assert.assertEquals("fr", element.getLanguage());
+    assertEquals("fr", element.getLanguage());
     element.setLanguage("la");
-    Assert.assertEquals("la", element.getLanguage());
+    assertEquals("la", element.getLanguage());
   }
 
   @Test
   public void testHasRendition() {
-    Assert.assertFalse(new Element("name").hasRendition());
-    Assert.assertFalse(new Element("name", Element.RENDITION, "").hasRendition());
-    Assert.assertFalse(new Element("name", "other", "value").hasRendition());
-    Assert.assertTrue(new Element("name", Element.RENDITION, "value").hasRendition());
+    assertFalse(new Element("name").hasRendition());
+    assertFalse(new Element("name", Element.RENDITION, "").hasRendition());
+    assertFalse(new Element("name", "other", "value").hasRendition());
+    assertTrue(new Element("name", Element.RENDITION, "value").hasRendition());
   }
 
   @Test
   public void testHasType() {
-    Assert.assertFalse(new Element("name", "key", "value").hasType("value"));
-    Assert.assertFalse(new Element("name", Element.TYPE, "value").hasType("type"));
-    Assert.assertTrue(new Element("name", Element.TYPE, "value").hasType("value"));
+    assertFalse(new Element("name", "key", "value").hasType("value"));
+    assertFalse(new Element("name", Element.TYPE, "value").hasType("type"));
+    assertTrue(new Element("name", Element.TYPE, "value").hasType("value"));
   }
 
   @Test
   public void testGeneratedElementHasNoLocation() {
     Element element = new Element("generated");
-    Assert.assertEquals(-1, element.getStartLine());
-    Assert.assertEquals(-1, element.getStartColumn());
+    assertEquals(-1, element.getStartLine());
+    assertEquals(-1, element.getStartColumn());
   }
 
   @Test
   public void testMissingIntAttribute() {
     Element element = new Element("name", "key", "37");
-    Assert.assertEquals(42, element.getIntAttribute("missing", 42));
+    assertEquals(42, element.getIntAttribute("missing", 42));
   }
 
   @Test
   public void testInvalidIntAttribute() {
     Element element = new Element("name", "key", "text");
-    Assert.assertEquals(42, element.getIntAttribute("key", 42));
+    assertEquals(42, element.getIntAttribute("key", 42));
   }
 
   @Test
   public void testValidIntAttribute() {
     Element element = new Element("name", "key", "37");
-    Assert.assertEquals(37, element.getIntAttribute("key", 42));
+    assertEquals(37, element.getIntAttribute("key", 42));
   }
 
   @Test
   public void testMissingDoubleAttribute() {
     Element element = new Element("name", "key", "33.3");
-    Assert.assertEquals(42.0, element.getDoubleAttribute("missing", 42.0), 0.001);
+    assertEquals(42.0, element.getDoubleAttribute("missing", 42.0), 0.001);
   }
 
   @Test
   public void testInvalidDoubleAttribute() {
     Element element = new Element("name", "key", "text");
-    Assert.assertEquals(42.0, element.getDoubleAttribute("key", 42.0), 0.001);
+    assertEquals(42.0, element.getDoubleAttribute("key", 42.0), 0.001);
   }
 
   @Test
   public void testValidDoubleAttribute() {
     Element element = new Element("name", "key", "33.3");
-    Assert.assertEquals(33.3, element.getDoubleAttribute("key", 42.0), 0.001);
+    assertEquals(33.3, element.getDoubleAttribute("key", 42.0), 0.001);
   }
 
   @Test
@@ -154,21 +155,21 @@ public class ElementTest {
     Element element = new Element("name", "key1", "value1");
     element.setAttribute("key2", "value2");
     Set<String> attributeNames = element.getAttributeNames();
-    Assert.assertEquals(2, attributeNames.size());
-    Assert.assertTrue(attributeNames.contains("key1"));
-    Assert.assertTrue(attributeNames.contains("key2"));
+    assertEquals(2, attributeNames.size());
+    assertTrue(attributeNames.contains("key1"));
+    assertTrue(attributeNames.contains("key2"));
   }
 
   @Test
   public void testHasParentWithName() {
     Element element = new Element("name");
-    Assert.assertFalse(element.hasParentWithName("parent"));
+    assertFalse(element.hasParentWithName("parent"));
     Element parent = new Element("name");
     element.setParent(parent);
-    Assert.assertFalse(element.hasParentWithName("parent"));
+    assertFalse(element.hasParentWithName("parent"));
     parent = new Element("parent");
     element.setParent(parent);
-    Assert.assertTrue(element.hasParentWithName("parent"));
+    assertTrue(element.hasParentWithName("parent"));
   }
 
 }

@@ -1,11 +1,10 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class HighlightHandlerTest {
 
@@ -19,17 +18,17 @@ public class HighlightHandlerTest {
 
   @Test
   public void testNoHighlight() {
-    Assert.assertEquals("text", process("<seg>text</seg>"));
+    assertEquals("text", process("<seg>text</seg>"));
   }
 
   @Test
   public void testHighlightWithoutRend() {
-    Assert.assertEquals("text", process("<hi>text</hi>"));
+    assertEquals("text", process("<hi>text</hi>"));
   }
 
   @Test
   public void testHighlightWithRend() {
-    Assert.assertEquals("<span class=\"x\">text</span>", process("<hi rend=\"x\">text</hi>"));
+    assertEquals("<span class=\"x\">text</span>", process("<hi rend=\"x\">text</hi>"));
   }
 
 }

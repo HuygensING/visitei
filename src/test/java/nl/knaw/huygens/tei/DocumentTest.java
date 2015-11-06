@@ -1,10 +1,7 @@
 package nl.knaw.huygens.tei;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.List;
-
-import org.junit.Assert;
 import org.junit.Test;
 
 public class DocumentTest {
@@ -17,9 +14,9 @@ public class DocumentTest {
   private void testGetElementsByTagName(String xml, String name, int expected) {
     Document document = Document.createFromXml(xml);
     List<Element> elements = document.getElementsByTagName(name);
-    Assert.assertEquals(expected, elements.size());
+    assertEquals(expected, elements.size());
     for (Element element : elements) {
-      Assert.assertEquals(name, element.getName());
+      assertEquals(name, element.getName());
     }
   }
 
@@ -79,12 +76,12 @@ public class DocumentTest {
     assertEquals("xml", element.getAttribute("xml:id"));
     assertEquals("my", element.getAttribute("my:id"));
 
-    //    document = Document.createFromXml(xml);
-    //    elements = document.getElementsByTagName("div");
-    //    element = elements.get(0);
-    //    assertEquals("xml", element.getAttribute("xml:id"));
-    //    assertEquals("my", element.getAttribute("my:id"));
-    //    assertEquals("id", element.getAttribute("id"));
+    // document = Document.createFromXml(xml);
+    // elements = document.getElementsByTagName("div");
+    // element = elements.get(0);
+    // assertEquals("xml", element.getAttribute("xml:id"));
+    // assertEquals("my", element.getAttribute("my:id"));
+    // assertEquals("id", element.getAttribute("id"));
 
   }
 

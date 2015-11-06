@@ -1,11 +1,10 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class DivisionHandlerTest {
 
@@ -19,17 +18,17 @@ public class DivisionHandlerTest {
 
   @Test
   public void testNoDiv() {
-    Assert.assertEquals("text", process("<span>text</span>"));
+    assertEquals("text", process("<span>text</span>"));
   }
 
   @Test
   public void testDivWithoutType() {
-    Assert.assertEquals("<div>text</div>", process("<div>text</div>"));
+    assertEquals("<div>text</div>", process("<div>text</div>"));
   }
 
   @Test
   public void testDivWithType() {
-    Assert.assertEquals("<div class=\"x\">text</div>", process("<div type=\"x\">text</div>"));
+    assertEquals("<div class=\"x\">text</div>", process("<div type=\"x\">text</div>"));
   }
 
 }

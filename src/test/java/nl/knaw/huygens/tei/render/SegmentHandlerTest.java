@@ -1,11 +1,10 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class SegmentHandlerTest {
 
@@ -19,17 +18,17 @@ public class SegmentHandlerTest {
 
   @Test
   public void testNoSegment() {
-    Assert.assertEquals("text", process("<hi>text</hi>"));
+    assertEquals("text", process("<hi>text</hi>"));
   }
 
   @Test
   public void testSegmentWithoutType() {
-    Assert.assertEquals("text", process("<seg>text</seg>"));
+    assertEquals("text", process("<seg>text</seg>"));
   }
 
   @Test
   public void testSegmentWithRend() {
-    Assert.assertEquals("<span class=\"x\">text</span>", process("<seg type=\"x\">text</seg>"));
+    assertEquals("<span class=\"x\">text</span>", process("<seg type=\"x\">text</seg>"));
   }
 
 }

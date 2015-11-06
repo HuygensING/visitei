@@ -1,11 +1,10 @@
 package nl.knaw.huygens.tei.render;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
 import nl.knaw.huygens.tei.XmlContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class TableCellHandlerTest {
 
@@ -19,27 +18,27 @@ public class TableCellHandlerTest {
 
   @Test
   public void testNoCell() {
-    Assert.assertEquals("text", process("<seg>text</seg>"));
+    assertEquals("text", process("<seg>text</seg>"));
   }
 
   @Test
   public void testEmptyCell() {
-    Assert.assertEquals("<td>&nbsp;</td>", process("<cell></cell>"));
+    assertEquals("<td>&nbsp;</td>", process("<cell></cell>"));
   }
 
   @Test
   public void testHeaderCell() {
-    Assert.assertEquals("<th>text</th>", process("<cell role=\"header\">text</cell>"));
+    assertEquals("<th>text</th>", process("<cell role=\"header\">text</cell>"));
   }
 
   @Test
   public void testMultiColumnCell() {
-    Assert.assertEquals("<td colspan=\"2\">text</td>", process("<cell cols=\"2\">text</cell>"));
+    assertEquals("<td colspan=\"2\">text</td>", process("<cell cols=\"2\">text</cell>"));
   }
 
   @Test
   public void testMultiColumnHeaderCell() {
-    Assert.assertEquals("<th colspan=\"3\">text</th>", process("<cell role=\"header\" cols=\"3\">text</cell>"));
+    assertEquals("<th colspan=\"3\">text</th>", process("<cell role=\"header\" cols=\"3\">text</cell>"));
   }
 
 }
