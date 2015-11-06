@@ -20,7 +20,6 @@ public class ExportVisitor extends DelegatingVisitor<XmlContext> {
   public ExportVisitor() {
     super(new XmlContext());
     setDefaultElementHandler(new RenderElementHandler());
-
     setTextHandler(new DefaultTextHandler<XmlContext>() {
       @Override
       protected String filterText(String text) {

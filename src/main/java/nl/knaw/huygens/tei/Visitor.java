@@ -15,4 +15,6 @@ public interface Visitor {
 
   Traversal visitText(Text text);
 
+  Traversal visitComment(Comment comment);
+
 }

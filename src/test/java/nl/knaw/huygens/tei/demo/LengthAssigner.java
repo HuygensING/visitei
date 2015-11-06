@@ -32,7 +32,7 @@ public class LengthAssigner {
   }
 
   private static void process(String xml, String... names) {
-    Document document = Document.createFromXml(xml);
+    Document document = Document.createFromXml(xml, false);
     LengthVisitor lengthVisitor = new LengthVisitor(names);
     document.accept(lengthVisitor);
     ExportVisitor exportVisitor = new ExportVisitor();

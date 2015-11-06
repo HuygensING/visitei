@@ -35,6 +35,7 @@ public class DocumentFactory extends DefaultHandler2 {
     try {
       parser.setContentHandler(this);
       parser.setEntityResolver(this);
+      parser.setProperty("http://xml.org/sax/properties/lexical-handler", this);
       parser.parse(new InputSource(new StringReader(xml)));
     } catch (SAXException e) {
       throw new RuntimeException(e);
@@ -123,6 +124,16 @@ public class DocumentFactory extends DefaultHandler2 {
   @Override
   public void setDocumentLocator(Locator locator) {
     this.locator = locator;
+  }
+
+  @Override
+  public void comment(char[] text, int start, int length) throws SAXException {
+    String comments = new String(text, start, length);
+    System.out.println(comments);
+    Element parent = elementStack.peek();
+    Comment comment = new Comment(comments);
+    parent.addNode(comment);
+    comment.setParent(parent);
   }
 
   private void setStartPosition(Node node) {

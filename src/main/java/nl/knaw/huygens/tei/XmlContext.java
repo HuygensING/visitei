@@ -73,6 +73,10 @@ public class XmlContext implements Context {
     }
   }
 
+  public void addComment(Object object) {
+    textLayer.addComment(object.toString());
+  }
+
   public void addOpenTag(Element element) {
     textLayer.addOpenTag(element);
   }

@@ -1,14 +1,17 @@
 package nl.knaw.huygens.tei.export;
 
 import static org.junit.Assert.assertEquals;
+
 import java.io.File;
+
 import org.junit.Test;
+
 import nl.knaw.huygens.tei.Document;
 
 public class ExportVisitorTest {
 
   private String process(String xml) {
-    Document document = Document.createFromXml(xml);
+    Document document = Document.createFromXml(xml, true);
     ExportVisitor visitor = new ExportVisitor();
     document.accept(visitor);
     return visitor.getContext().getResult();
@@ -23,6 +26,12 @@ public class ExportVisitorTest {
   @Test
   public void testEntities() {
     String xml = "<TEI><text>ge&lt;daen&gt;, &amp;c.</text></TEI>";
+    assertEquals(xml, process(xml));
+  }
+
+  //  @Test TODO: preserve comments!
+  public void testComments() {
+    String xml = "<TEI><!-- comments are preserved --></TEI>";
     assertEquals(xml, process(xml));
   }
 

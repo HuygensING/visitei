@@ -30,4 +30,9 @@ public class DefaultVisitor implements Visitor {
     return Traversal.NEXT;
   }
 
+  @Override
+  public Traversal visitComment(Comment comment) {
+    return Traversal.NEXT;
+  }
+
 }

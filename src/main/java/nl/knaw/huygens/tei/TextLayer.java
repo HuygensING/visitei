@@ -53,6 +53,10 @@ public class TextLayer {
     builder.append('<').append(elementName).append('/').append('>');
   }
 
+  public void addComment(String comment) {
+    builder.append("<!-- ").append(comment).append(" -->");
+  }
+
   public void addElement(Element element, Object content) {
     addOpenTag(element);
     addLiteral(content);
