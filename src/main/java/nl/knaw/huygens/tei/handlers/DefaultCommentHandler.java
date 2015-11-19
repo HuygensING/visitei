@@ -33,7 +33,7 @@ public class DefaultCommentHandler<T extends Context> implements CommentHandler<
 
   @Override
   public Traversal visitComment(Comment comment, T context) {
-    context.addLiteral("<!--" + comment.getComment() + "-->");
+    context.addLiteral(comment.toString());
     return Traversal.NEXT;
   }
 
