@@ -31,7 +31,7 @@ import java.util.Set;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
-public class Element extends Node {
+public class Element extends SubNode {
 
   public static final String DIV_TAG = "div";
   public static final String SPAN_TAG = "span";
@@ -49,13 +49,11 @@ public class Element extends Node {
   private String name;
   private final Map<String, String> attributes;
 
-  private Element parent;
   private final List<Node> nodes;
 
   public Element(String name, Map<String, String> attrs) {
     this.name = name;
     this.attributes = attrs;
-    this.parent = null;
     nodes = Lists.newArrayList();
   }
 
@@ -83,18 +81,6 @@ public class Element extends Node {
   }
 
   // --- Structure -----------------------------------------------------
-
-  public Element getParent() {
-    return parent;
-  }
-
-  public void setParent(Element parent) {
-    this.parent = parent;
-  }
-
-  public boolean hasParentWithName(String name) {
-    return (parent != null) && parent.hasName(name);
-  }
 
   public void addNode(Node node) {
     nodes.add(node);

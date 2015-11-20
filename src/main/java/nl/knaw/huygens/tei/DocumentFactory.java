@@ -41,10 +41,15 @@ import com.google.common.collect.Maps;
 
 public class DocumentFactory extends DefaultHandler2 {
 
+  private enum Section {
+    headNodes, elements, footNodes
+  }
+
   private final Deque<Element> elementStack;
   private final Document document;
   private Locator locator;
   private boolean preserveNameSpacePrefix;
+  private Section currentSection = Section.headNodes;
 
   private Map<String, String> prefixMap = Maps.newHashMap();
 
@@ -104,6 +109,7 @@ public class DocumentFactory extends DefaultHandler2 {
 
   @Override
   public void startElement(String uri, String localName, String name, Attributes attrs) throws SAXException {
+    currentSection = Section.elements;
     // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Map<String, String> attributes = XmlUtils.convertSAXAttributes(attrs, preserveNameSpacePrefix);
     Element element = new Element(name, attributes);
@@ -136,11 +142,7 @@ public class DocumentFactory extends DefaultHandler2 {
   public void characters(char[] chars, int start, int length) throws SAXException {
     // System.out.println(locator.getLineNumber() + ":" + locator.getColumnNumber());
     Text text = new Text(chars, start, length);
-    setEndPosition(text);
-
-    Element parent = elementStack.peek();
-    parent.addNode(text);
-    text.setParent(parent);
+    addNonElementNode(text);
   }
 
   @Override
@@ -152,10 +154,22 @@ public class DocumentFactory extends DefaultHandler2 {
   public void comment(char[] text, int start, int length) throws SAXException {
     String comments = new String(text, start, length);
     System.out.println(comments);
-    Element parent = elementStack.peek();
     Comment comment = new Comment(comments);
-    parent.addNode(comment);
-    comment.setParent(parent);
+    addNonElementNode(comment);
+  }
+
+  private void addNonElementNode(SubNode node) {
+    setEndPosition(node);
+    Element parent = elementStack.peek();
+    if (parent != null) {
+      parent.addNode(node);
+      node.setParent(parent);
+    } else if (currentSection.equals(Section.headNodes)) {
+      document.getHeadNodes().add(node);
+    } else {
+      currentSection = Section.footNodes;
+      document.getFootNodes().add(node);
+    }
   }
 
   private void setStartPosition(Node node) {

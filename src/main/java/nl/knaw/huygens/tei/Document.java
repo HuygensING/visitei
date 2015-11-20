@@ -1,5 +1,7 @@
 package nl.knaw.huygens.tei;
 
+import java.util.ArrayList;
+
 /*
  * #%L
  * VisiTEI
@@ -28,6 +30,8 @@ import com.google.common.collect.Lists;
 
 public class Document extends Node {
   private Element root;
+  private List<Node> headNodes = new ArrayList<Node>();
+  private List<Node> footNodes = new ArrayList<Node>();
 
   /**
    * @param xml  xml source
@@ -56,6 +60,14 @@ public class Document extends Node {
 
   public Element getRoot() {
     return root;
+  }
+
+  public List<Node> getHeadNodes() {
+    return headNodes;
+  }
+
+  public List<Node> getFootNodes() {
+    return footNodes;
   }
 
   public void setRoot(Element element) {
@@ -88,8 +100,14 @@ public class Document extends Node {
   @Override
   public Traversal accept(Visitor visitor) {
     if (visitor.enterDocument(this) == Traversal.NEXT) {
+      for (Node node : headNodes) {
+        node.accept(visitor);
+      }
       if (root != null) {
         root.accept(visitor);
+      }
+      for (Node node : footNodes) {
+        node.accept(visitor);
       }
     }
     return visitor.leaveDocument(this);

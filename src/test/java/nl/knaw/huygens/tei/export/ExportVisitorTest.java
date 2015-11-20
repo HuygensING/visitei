@@ -58,6 +58,13 @@ public class ExportVisitorTest {
   }
 
   @Test
+  public void testCommentsOutsideElementTreeGetCopiedToo() {
+    String xmlIn = "<!-- first -->\n<!-- before -->\n<TEI><!-- inside --></TEI>\n<!-- after -->\n<!-- last -->";
+    String xmlOut = xmlIn.replace("\n", "");
+    assertEquals(xmlOut, process(xmlIn));
+  }
+
+  @Test
   public void testDontSplitUpText() {
     String xml = "<text><div type=\"opener\" resp=\"WR\"><p>Illustrissime Domine legate,</p></div></text>";
     assertEquals(xml, process(xml));

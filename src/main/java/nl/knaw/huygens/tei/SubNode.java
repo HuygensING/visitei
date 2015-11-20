@@ -22,38 +22,22 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class Text extends SubNode {
+/**
+ * Ancestor for elements, comments and text in the DOM.
+ */
+public abstract class SubNode extends Node {
+  private Element parent = null;
 
-  private String text;
-
-  public Text(char[] chars, int start, int length) {
-    text = new String(chars, start, length);
+  public Element getParent() {
+    return parent;
   }
 
-  public Text(String text) {
-    this.text = text;
+  public void setParent(Element parent) {
+    this.parent = parent;
   }
 
-  // --- visiting ------------------------------------------------------
-
-  @Override
-  public Traversal accept(Visitor visitor) {
-    return visitor.visitText(this);
-  }
-
-  // -------------------------------------------------------------------
-
-  public String getText() {
-    return text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
-  }
-
-  @Override
-  public String toString() {
-    return text;
+  public boolean hasParentWithName(String name) {
+    return (parent != null) && parent.hasName(name);
   }
 
 }

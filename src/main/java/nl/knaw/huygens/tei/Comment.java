@@ -22,19 +22,16 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class Comment extends Node {
+public class Comment extends SubNode {
 
   private String comment;
-  private Element parent;
 
   public Comment(char[] chars, int start, int length) {
     comment = new String(chars, start, length);
-    parent = null;
   }
 
   public Comment(String comment) {
     this.comment = comment;
-    parent = null;
   }
 
   // --- visiting ------------------------------------------------------
@@ -45,14 +42,6 @@ public class Comment extends Node {
   }
 
   // -------------------------------------------------------------------
-
-  public Element getParent() {
-    return parent;
-  }
-
-  public void setParent(Element parent) {
-    this.parent = parent;
-  }
 
   public String getComment() {
     return comment;
