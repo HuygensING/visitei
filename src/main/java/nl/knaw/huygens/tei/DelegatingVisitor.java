@@ -29,6 +29,7 @@ import com.google.common.collect.Maps;
 
 import nl.knaw.huygens.tei.handlers.DefaultCommentHandler;
 import nl.knaw.huygens.tei.handlers.DefaultElementHandler;
+import nl.knaw.huygens.tei.handlers.DefaultProcessingInstructionHandler;
 import nl.knaw.huygens.tei.handlers.DefaultTextHandler;
 
 public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
@@ -38,6 +39,7 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
   private ElementHandler<T> defaultHandler;
   private TextHandler<T> textHandler;
   private CommentHandler<T> commentHandler;
+  private ProcessingInstructionHandler<T> processingInstructionHandler;
 
   public DelegatingVisitor(T context) {
     this.context = context;
@@ -45,6 +47,7 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
     defaultHandler = new DefaultElementHandler<T>();
     textHandler = new DefaultTextHandler<T>();
     commentHandler = new DefaultCommentHandler<T>();
+    processingInstructionHandler = new DefaultProcessingInstructionHandler<T>();
   }
 
   public T getContext() {
@@ -59,6 +62,11 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
   public void setCommentHandler(CommentHandler<T> handler) {
     Preconditions.checkNotNull(handler);
     commentHandler = handler;
+  }
+
+  public void setProcessingInstructionHandler(ProcessingInstructionHandler<T> handler) {
+    Preconditions.checkNotNull(handler);
+    processingInstructionHandler = handler;
   }
 
   public void setDefaultElementHandler(ElementHandler<T> handler) {
@@ -97,6 +105,11 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
   @Override
   public Traversal visitComment(Comment comment) {
     return commentHandler.visitComment(comment, context);
+  }
+
+  @Override
+  public Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction) {
+    return processingInstructionHandler.visitProcessingInstruction(processingInstruction, context);
   }
 
 }

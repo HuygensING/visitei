@@ -32,13 +32,6 @@ import nl.knaw.huygens.tei.Document;
 
 public class ExportVisitorTest {
 
-  private String process(String xml) {
-    Document document = Document.createFromXml(xml, true);
-    ExportVisitor visitor = new ExportVisitor();
-    document.accept(visitor);
-    return visitor.getContext().getResult();
-  }
-
   @Test
   public void testBasicXml() {
     String xml = "<TEI><text><head><h1>Hello World</h1></head></text></TEI>";
@@ -48,6 +41,18 @@ public class ExportVisitorTest {
   @Test
   public void testEntities() {
     String xml = "<TEI><text>ge&lt;daen&gt;, &amp;c.</text></TEI>";
+    assertEquals(xml, process(xml));
+  }
+
+  @Test
+  public void testProcessingInstruction() {
+    String xml = "<?oxygen RNGSchema=\"AF.rng\" type=\"xml\"?><TEI><text>text</text></TEI>";
+    assertEquals(xml, process(xml));
+  }
+
+  @Test
+  public void testCDATA() {
+    String xml = "<TEI><text><![CDATA[no <escaping> necessary & needed in CDATA]]></text></TEI>";
     assertEquals(xml, process(xml));
   }
 
@@ -73,6 +78,13 @@ public class ExportVisitorTest {
     assertEquals(xml.length(), normalized.length());
     // Normalized xml should be idempotent
     assertEquals(normalized, process(normalized));
+  }
+
+  private String process(String xml) {
+    Document document = Document.createFromXml(xml, true);
+    ExportVisitor visitor = new ExportVisitor();
+    document.accept(visitor);
+    return visitor.getContext().getResult();
   }
 
 }

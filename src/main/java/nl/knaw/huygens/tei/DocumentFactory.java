@@ -154,8 +154,22 @@ public class DocumentFactory extends DefaultHandler2 {
     System.out.println(comments);
     Element parent = elementStack.peek();
     Comment comment = new Comment(comments);
-    parent.addNode(comment);
-    comment.setParent(parent);
+    if (parent != null) {
+      parent.addNode(comment);
+      comment.setParent(parent);
+    }
+  }
+
+  @Override
+  public void processingInstruction(String target, String data) throws SAXException {
+    Element parent = elementStack.peek();
+    ProcessingInstruction pi = new ProcessingInstruction(target, data);
+    if (parent != null) {
+      parent.addNode(pi);
+      pi.setParent(parent);
+    } else {
+      // TODO
+    }
   }
 
   private void setStartPosition(Node node) {
