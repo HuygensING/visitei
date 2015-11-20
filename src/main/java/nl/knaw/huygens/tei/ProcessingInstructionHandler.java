@@ -22,23 +22,8 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-/**
- * Hierarchical visitor.
- */
-public interface Visitor {
+public interface ProcessingInstructionHandler<T extends Context> {
 
-  Traversal enterDocument(Document document);
-
-  Traversal leaveDocument(Document document);
-
-  Traversal enterElement(Element element);
-
-  Traversal leaveElement(Element element);
-
-  Traversal visitText(Text text);
-
-  Traversal visitComment(Comment comment);
-
-  Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction);
+  Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction, T context);
 
 }

@@ -158,6 +158,13 @@ public class DocumentFactory extends DefaultHandler2 {
     addNonElementNode(comment);
   }
 
+  @Override
+  public void processingInstruction(String target, String data) throws SAXException {
+    Element parent = elementStack.peek();
+    ProcessingInstruction pi = new ProcessingInstruction(target, data);
+    addNonElementNode(pi);
+  }
+  
   private void addNonElementNode(SubNode node) {
     setEndPosition(node);
     Element parent = elementStack.peek();

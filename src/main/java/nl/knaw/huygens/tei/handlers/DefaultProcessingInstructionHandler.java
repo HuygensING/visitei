@@ -1,4 +1,6 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei.handlers;
+
+import nl.knaw.huygens.tei.Context;
 
 /*
  * #%L
@@ -22,43 +24,17 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-/**
- * A visitor that merely traverses the document tree.
- */
-public class DefaultVisitor implements Visitor {
+import nl.knaw.huygens.tei.ProcessingInstruction;
+import nl.knaw.huygens.tei.ProcessingInstructionHandler;
+import nl.knaw.huygens.tei.Traversal;
+
+public class DefaultProcessingInstructionHandler<T extends Context> implements ProcessingInstructionHandler<T> {
+
+  public DefaultProcessingInstructionHandler() {}
 
   @Override
-  public Traversal enterDocument(Document document) {
-    return Traversal.NEXT;
-  }
-
-  @Override
-  public Traversal leaveDocument(Document document) {
-    return Traversal.NEXT;
-  }
-
-  @Override
-  public Traversal enterElement(Element element) {
-    return Traversal.NEXT;
-  }
-
-  @Override
-  public Traversal leaveElement(Element element) {
-    return Traversal.NEXT;
-  }
-
-  @Override
-  public Traversal visitText(Text text) {
-    return Traversal.NEXT;
-  }
-
-  @Override
-  public Traversal visitComment(Comment comment) {
-    return Traversal.NEXT;
-  }
-
-  @Override
-  public Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction) {
+  public Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction, T context) {
+    context.addLiteral(processingInstruction.toString());
     return Traversal.NEXT;
   }
 
