@@ -22,16 +22,14 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class ProcessingInstruction extends Node {
+public class ProcessingInstruction extends SubNode {
 
   private String target;
   private String data;
-  private Element parent;
 
   public ProcessingInstruction(String target, String data) {
     this.target = target;
     this.data = data;
-    parent = null;
   }
 
   // --- visiting ------------------------------------------------------
@@ -42,14 +40,6 @@ public class ProcessingInstruction extends Node {
   }
 
   // -------------------------------------------------------------------
-
-  public Element getParent() {
-    return parent;
-  }
-
-  public void setParent(Element parent) {
-    this.parent = parent;
-  }
 
   public String getTarget() {
     return target;
