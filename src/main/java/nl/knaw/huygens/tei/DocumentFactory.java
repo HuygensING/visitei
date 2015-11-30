@@ -153,7 +153,6 @@ public class DocumentFactory extends DefaultHandler2 {
   @Override
   public void comment(char[] text, int start, int length) throws SAXException {
     String comments = new String(text, start, length);
-    System.out.println(comments);
     Comment comment = new Comment(comments);
     addNonElementNode(comment);
   }
@@ -164,7 +163,7 @@ public class DocumentFactory extends DefaultHandler2 {
     ProcessingInstruction pi = new ProcessingInstruction(target, data);
     addNonElementNode(pi);
   }
-  
+
   private void addNonElementNode(SubNode node) {
     setEndPosition(node);
     Element parent = elementStack.peek();
