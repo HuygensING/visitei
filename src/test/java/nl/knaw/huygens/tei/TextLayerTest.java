@@ -10,12 +10,12 @@ package nl.knaw.huygens.tei;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -23,7 +23,9 @@ package nl.knaw.huygens.tei;
  */
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -71,7 +73,7 @@ public class TextLayerTest {
 
   @Test
   public void testOpenTagOneAttribute() {
-    layer.addOpenTag(new Element("tag", "key", "value"));
+    layer.addOpenTag(new Element("tag").withAttribute("key", "value"));
     assertEquals("<tag key=\"value\">", layer.toString());
   }
 
@@ -86,7 +88,7 @@ public class TextLayerTest {
 
   @Test
   public void testOpenTagWithAmpsersand() {
-    layer.addOpenTag(new Element("ref", "target", "http://www.host.nl/nnbw?source=1&page_number=11"));
+    layer.addOpenTag(new Element("ref").withAttribute("target", "http://www.host.nl/nnbw?source=1&page_number=11"));
     assertEquals("<ref target=\"http://www.host.nl/nnbw?source=1&amp;page_number=11\">", layer.toString());
   }
 
@@ -107,7 +109,7 @@ public class TextLayerTest {
     layer.addOpenTag("h1");
     layer.addLiteral("II");
     layer.addCloseTag("h1");
-    layer.addOpenTag(new Element("p", "id", "p2.0"));
+    layer.addOpenTag(new Element("p").withAttribute("id", "p2.0"));
     layer.addLiteral("Er wordt gesproken over de \"staatsfabriek\".");
     layer.addCloseTag("p");
     assertEquals("<h1>II</h1><p id=\"p2.0\">Er wordt gesproken over de \"staatsfabriek\".</p>", layer.toString());

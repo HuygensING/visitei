@@ -37,11 +37,11 @@ public class Element extends SubNode {
   public static final String SPAN_TAG = "span";
 
   public static Element newDivElement(String className) {
-    return new Element(DIV_TAG, "class", className);
+    return new Element(DIV_TAG).withAttribute("class", className);
   }
 
   public static Element newSpanElement(String className) {
-    return new Element(SPAN_TAG, "class", className);
+    return new Element(SPAN_TAG).withAttribute("class", className);
   }
 
   // -------------------------------------------------------------------
@@ -57,13 +57,25 @@ public class Element extends SubNode {
     nodes = Lists.newArrayList();
   }
 
+  public Element(String name) {
+    this(name, XmlUtils.newAttributes());
+  }
+
+  public Element withAttribute(String key, String value) {
+    setAttribute(key, value);
+    return this;
+  }
+
+  /**
+   * @deprecated As of 0.4.7, use new {@link #Element(String)}.{@link #withAttribute(String, String)} instead
+   * @param name
+   * @param key   attribute key
+   * @param value attribute value
+   */
+  @Deprecated
   public Element(String name, String key, String value) {
     this(name, XmlUtils.newAttributes());
     attributes.put(key, value);
-  }
-
-  public Element(String name) {
-    this(name, XmlUtils.newAttributes());
   }
 
   // --- Visiting ------------------------------------------------------
@@ -204,11 +216,6 @@ public class Element extends SubNode {
 
   public void setAttribute(String key, String value) {
     attributes.put(key, value);
-  }
-
-  public Element withAttribute(String key, String value) {
-    setAttribute(key, value);
-    return this;
   }
 
   public void copyAttributeFrom(Element source, String key) {

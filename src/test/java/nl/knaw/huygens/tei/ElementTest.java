@@ -10,12 +10,12 @@ package nl.knaw.huygens.tei;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -25,7 +25,9 @@ package nl.knaw.huygens.tei;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,38 +54,41 @@ public class ElementTest {
 
   @Test
   public void oneAttribute() {
-    Element element = new Element("name", "key", "value");
+    Element element = new Element("name").withAttribute("key", "value");
     element.appendOpenTagTo(builder);
     assertRendered("<name key=\"value\">");
   }
 
   @Test
   public void twoAttributesInOrder() {
-    Element element = new Element("name", "key1", "value1");
-    element.setAttribute("key2", "value2");
+    Element element = new Element("name")//
+        .withAttribute("key1", "value1")//
+        .withAttribute("key2", "value2");
     element.appendOpenTagTo(builder);
     assertRendered("<name key1=\"value1\" key2=\"value2\">");
   }
 
   @Test
   public void twoAttributesOutOfOrder() {
-    Element element = new Element("name", "key2", "value2");
-    element.setAttribute("key1", "value1");
+    Element element = new Element("name")//
+        .withAttribute("key2", "value2")//
+        .withAttribute("key1", "value1");
     element.appendOpenTagTo(builder);
     assertRendered("<name key2=\"value2\" key1=\"value1\">");
   }
 
   @Test
   public void overwriteAttribute() {
-    Element element = new Element("name", "key1", "value1");
-    element.setAttribute("key1", "value2");
+    Element element = new Element("name")//
+        .withAttribute("key1", "value1")//
+        .withAttribute("key1", "value2");
     element.appendOpenTagTo(builder);
     assertRendered("<name key1=\"value2\">");
   }
 
   @Test
   public void emptyElementTag() {
-    Element element = new Element("name", "key", "value");
+    Element element = new Element("name").withAttribute("key", "value");
     element.appendEmptyElementTagTo(builder);
     assertRendered("<name key=\"value\"/>");
   }
@@ -91,17 +96,17 @@ public class ElementTest {
   @Test
   public void testHasAttribute() {
     assertFalse(new Element("name").hasAttribute("key"));
-    assertFalse(new Element("name", "key", "").hasAttribute("key"));
-    assertFalse(new Element("name", "other", "value").hasAttribute("key"));
-    assertTrue(new Element("name", "key", "value").hasAttribute("key"));
+    assertFalse(new Element("name").withAttribute("key", "").hasAttribute("key"));
+    assertFalse(new Element("name").withAttribute("other", "value").hasAttribute("key"));
+    assertTrue(new Element("name").withAttribute("key", "value").hasAttribute("key"));
   }
 
   @Test
   public void testHasLanguage() {
     assertFalse(new Element("name").hasLanguage());
-    assertFalse(new Element("name", "lang", "").hasLanguage());
-    assertFalse(new Element("name", "key", "value").hasLanguage());
-    assertTrue(new Element("name", "lang", "value").hasLanguage());
+    assertFalse(new Element("name").withAttribute("lang", "").hasLanguage());
+    assertFalse(new Element("name").withAttribute("key", "value").hasLanguage());
+    assertTrue(new Element("name").withAttribute("lang", "value").hasLanguage());
   }
 
   @Test
@@ -117,16 +122,16 @@ public class ElementTest {
   @Test
   public void testHasRendition() {
     assertFalse(new Element("name").hasRendition());
-    assertFalse(new Element("name", Element.RENDITION, "").hasRendition());
-    assertFalse(new Element("name", "other", "value").hasRendition());
-    assertTrue(new Element("name", Element.RENDITION, "value").hasRendition());
+    assertFalse(new Element("name").withAttribute(Element.RENDITION, "").hasRendition());
+    assertFalse(new Element("name").withAttribute("other", "value").hasRendition());
+    assertTrue(new Element("name").withAttribute(Element.RENDITION, "value").hasRendition());
   }
 
   @Test
   public void testHasType() {
-    assertFalse(new Element("name", "key", "value").hasType("value"));
-    assertFalse(new Element("name", Element.TYPE, "value").hasType("type"));
-    assertTrue(new Element("name", Element.TYPE, "value").hasType("value"));
+    assertFalse(new Element("name").withAttribute("key", "value").hasType("value"));
+    assertFalse(new Element("name").withAttribute(Element.TYPE, "value").hasType("type"));
+    assertTrue(new Element("name").withAttribute(Element.TYPE, "value").hasType("value"));
   }
 
   @Test
@@ -138,44 +143,45 @@ public class ElementTest {
 
   @Test
   public void testMissingIntAttribute() {
-    Element element = new Element("name", "key", "37");
+    Element element = new Element("name").withAttribute("key", "37");
     assertEquals(42, element.getIntAttribute("missing", 42));
   }
 
   @Test
   public void testInvalidIntAttribute() {
-    Element element = new Element("name", "key", "text");
+    Element element = new Element("name").withAttribute("key", "text");
     assertEquals(42, element.getIntAttribute("key", 42));
   }
 
   @Test
   public void testValidIntAttribute() {
-    Element element = new Element("name", "key", "37");
+    Element element = new Element("name").withAttribute("key", "37");
     assertEquals(37, element.getIntAttribute("key", 42));
   }
 
   @Test
   public void testMissingDoubleAttribute() {
-    Element element = new Element("name", "key", "33.3");
+    Element element = new Element("name").withAttribute("key", "33.3");
     assertEquals(42.0, element.getDoubleAttribute("missing", 42.0), 0.001);
   }
 
   @Test
   public void testInvalidDoubleAttribute() {
-    Element element = new Element("name", "key", "text");
+    Element element = new Element("name").withAttribute("key", "text");
     assertEquals(42.0, element.getDoubleAttribute("key", 42.0), 0.001);
   }
 
   @Test
   public void testValidDoubleAttribute() {
-    Element element = new Element("name", "key", "33.3");
+    Element element = new Element("name").withAttribute("key", "33.3");
     assertEquals(33.3, element.getDoubleAttribute("key", 42.0), 0.001);
   }
 
   @Test
   public void testGetAttributeNames() {
-    Element element = new Element("name", "key1", "value1");
-    element.setAttribute("key2", "value2");
+    Element element = new Element("name")//
+        .withAttribute("key1", "value1")//
+        .withAttribute("key2", "value2");
     Set<String> attributeNames = element.getAttributeNames();
     assertEquals(2, attributeNames.size());
     assertTrue(attributeNames.contains("key1"));
