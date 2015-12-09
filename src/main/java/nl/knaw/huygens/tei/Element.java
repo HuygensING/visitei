@@ -206,6 +206,11 @@ public class Element extends SubNode {
     attributes.put(key, value);
   }
 
+  public Element withAttribute(String key, String value) {
+    setAttribute(key, value);
+    return this;
+  }
+
   public void copyAttributeFrom(Element source, String key) {
     String value = source.getAttribute(key);
     if (value.length() != 0) {
