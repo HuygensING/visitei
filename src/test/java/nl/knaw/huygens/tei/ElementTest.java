@@ -24,6 +24,7 @@ package nl.knaw.huygens.tei;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
@@ -198,6 +199,20 @@ public class ElementTest {
     parent = new Element("parent");
     element.setParent(parent);
     assertTrue(element.hasParentWithName("parent"));
+  }
+
+  @Test
+  public void testCopyOfGeneratesACopy() {
+    Element parent = new Element("parent");
+    Element original = new Element("name").withAttribute("key1", "value1").withAttribute("key2", "value2");
+    original.setParent(parent);
+    Element copy = Element.copyOf(original);
+    assertEquals(copy.getName(), original.getName());
+    assertEquals(copy.getAttributes(), original.getAttributes());
+    assertNull(copy.getParent());
+    copy.setAttribute("key3", "value3");
+    assertEquals(3, copy.getAttributeNames().size());
+    assertEquals(2, original.getAttributeNames().size());
   }
 
 }

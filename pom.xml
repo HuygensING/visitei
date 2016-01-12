@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.knaw.huygens</groupId>
   <artifactId>visitei</artifactId>
-  <version>0.4.7</version>
+  <version>0.4.8</version>
   <inceptionYear>2011</inceptionYear>
   <name>VisiTEI</name>
 
@@ -21,17 +21,17 @@
     <dependency>
       <groupId>nl.knaw.huygens</groupId>
       <artifactId>log</artifactId>
-      <version>1.1.0</version>
+      <version>1.1.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>19.0-rc2</version>
+      <version>19.0.20150826</version>
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
-      <version>2.11.0</version>
+      <version>2.11.0.SP4</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>

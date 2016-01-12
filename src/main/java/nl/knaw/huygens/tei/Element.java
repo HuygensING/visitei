@@ -26,6 +26,7 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.common.base.Joiner;
@@ -64,6 +65,19 @@ public class Element extends SubNode {
   public Element withAttribute(String key, String value) {
     setAttribute(key, value);
     return this;
+  }
+
+  /**
+   * Create a new element with the same name and attributes as the given element, but none of its child nodes or end/start lines/columns
+   * @param element the element to copy
+   * @return the copied element, with the same name and attributes as the given element.
+   */
+  public static Element copyOf(Element element) {
+    Element copy = new Element(element.getName());
+    for (Entry<String, String> attribute : element.attributes.entrySet()) {
+      copy.setAttribute(attribute.getKey(), attribute.getValue());
+    }
+    return copy;
   }
 
   /**
