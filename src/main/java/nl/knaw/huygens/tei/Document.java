@@ -1,5 +1,6 @@
 package nl.knaw.huygens.tei;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 
 /*
@@ -12,12 +13,12 @@ import java.util.ArrayList;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -26,12 +27,29 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.xml.xpath.XPathExpressionException;
+
+import org.xml.sax.InputSource;
+
 import com.google.common.collect.Lists;
+
+import nl.knaw.huygens.tei.xpath.XPathUtil;
 
 public class Document extends Node {
   private Element root;
   private List<Node> headNodes = new ArrayList<Node>();
   private List<Node> footNodes = new ArrayList<Node>();
+  private String xml;
+
+  /**
+  *
+  * @param xml  xml source
+  * @param preserveNamespacePrefix preserve the namespace prefix for an Elements attributes
+  * @return the Document
+  */
+  public static Document createFromXml(String xml, boolean preserveNamespacePrefix) {
+    return new DocumentFactory(xml, preserveNamespacePrefix).getDocument();
+  }
 
   /**
    * @param xml  xml source
@@ -44,14 +62,8 @@ public class Document extends Node {
     return new DocumentFactory(xml, false).getDocument();
   }
 
-  /**
-   *
-   * @param xml  xml source
-   * @param preserveNamespacePrefix preserve the namespace prefix for an Elements attributes
-   * @return the Document
-   */
-  public static Document createFromXml(String xml, boolean preserveNamespacePrefix) {
-    return new DocumentFactory(xml, preserveNamespacePrefix).getDocument();
+  public void setXml(String xml) {
+    this.xml = xml;
   }
 
   public Document() {
@@ -113,4 +125,29 @@ public class Document extends Node {
     return visitor.leaveDocument(this);
   }
 
+  // --- XPath ------------------------------------------------------
+
+  public String evaluateXPathToString(String xpathQuery) throws XPathExpressionException {
+    return XPathUtil.evaluate(xpathQuery, inputSource());
+  }
+
+  public Long evaluateXPathToLong(String xpathQuery) throws XPathExpressionException {
+    return XPathUtil.evaluate(xpathQuery, inputSource(), Long.class);
+  }
+
+  public Boolean evaluateXPathToBoolean(String xpathQuery) throws XPathExpressionException {
+    return XPathUtil.evaluate(xpathQuery, inputSource(), Boolean.class);
+  }
+
+  //  public org.w3c.dom.Node evaluateXPathToNode(String xpathQuery) throws XPathExpressionException {
+  //    return XPathUtil.evaluate(xpathQuery, inputSource(), org.w3c.dom.Node.class);
+  //  }
+  //
+  //  public NodeList evaluateXPathToNodeList(String xpathQuery) throws XPathExpressionException {
+  //    return XPathUtil.evaluate(xpathQuery, inputSource(), NodeList.class);
+  //  }
+
+  private InputSource inputSource() {
+    return new InputSource(new StringReader(xml));
+  }
 }

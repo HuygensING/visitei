@@ -10,12 +10,12 @@ package nl.knaw.huygens.tei;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -23,7 +23,12 @@ package nl.knaw.huygens.tei;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
+import javax.xml.xpath.XPathExpressionException;
+
 import org.junit.Test;
 
 public class DocumentTest {
@@ -122,7 +127,7 @@ public class DocumentTest {
     String xml = "<root><x><name>\n" + //
         "<x/><name/></name></x><text>hello\n" + //
         " world</text></root>";
-    Document document = Document.createFromXml(xml);
+    Document document = Document.createFromXml(xml, true);
     List<Element> elements = document.getElementsByTagName("name");
 
     Element first = elements.get(0);
@@ -141,7 +146,37 @@ public class DocumentTest {
     assertEquals(1, document.getStartColumn());
     assertEquals(3, document.getEndLine());
     assertEquals(21, document.getEndColumn());
-
   }
 
+  @Test
+  public void testXPathEvaluationToString() throws XPathExpressionException {
+    String xml = "<root><x><name>\n" + //
+        "<x/><name/></name></x><text>hello\n" + //
+        " world</text></root>";
+    Document document = Document.createFromXml(xml, true);
+    String result = document.evaluateXPathToString("//text");
+    assertEquals("hello\n world", result);
+  }
+
+  @Test
+  public void testXPathEvaluationToBoolean() throws XPathExpressionException {
+    String xml = "<root><x><name>\n" + //
+        "<x/><name/></name></x><text>hello\n" + //
+        " world</text></root>";
+    Document document = Document.createFromXml(xml, true);
+    Boolean result = document.evaluateXPathToBoolean("boolean(//text)");
+    assertTrue(result);
+  }
+
+  //  @Test
+  //  public void testXPathEvaluationToNode() throws XPathExpressionException {
+  //    String xml = "<root>"//
+  //        + "<a id=\"A\">aaa</a>"//
+  //        + "<b id=\"B\">bbb</b>"//
+  //        + "</root>";
+  //    Document document = Document.createFromXml(xml, true);
+  //    org.w3c.dom.Node result = document.evaluateXPathToNode("//*[@id='A']");
+  //    assertEquals("a", result.getNodeName());
+  //    assertEquals("aaa", result.getFirstChild().getTextContent());
+  //  }
 }
