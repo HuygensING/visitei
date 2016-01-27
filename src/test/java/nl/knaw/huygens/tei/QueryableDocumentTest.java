@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.junit.Test;
+import org.w3c.dom.NodeList;
 
 public class QueryableDocumentTest {
   @Test
@@ -80,6 +81,16 @@ public class QueryableDocumentTest {
     QueryableDocument document = QueryableDocument.createFromXml(xml, true);
     Double result = document.evaluateXPathToDouble("count(//x)");
     assertTrue(result == 2);
+  }
+
+  @Test
+  public void testXPathEvaluationToW3CNodeList() throws XPathExpressionException {
+    String xml = "<root><b xml:id=\"1\">een</b><b xml:id=\"2\">twee</b></root>";
+    QueryableDocument document = QueryableDocument.createFromXml(xml, true);
+    NodeList list = document.evaluateXPathToW3CNodeList("//b");
+    assertTrue(list.getLength() == 2);
+    assertEquals("een", list.item(0).getTextContent());
+    assertEquals("twee", list.item(1).getTextContent());
   }
 
   //  @Test

@@ -31,6 +31,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import net.sf.practicalxml.xpath.NamespaceResolver;
@@ -125,6 +126,10 @@ public class QueryableDocument {
 
   public Boolean evaluateXPathToBoolean(String xpathQuery) throws XPathExpressionException {
     return (Boolean) xpath.evaluate(xpathQuery, inputSource(), XPathConstants.BOOLEAN);
+  }
+
+  public NodeList evaluateXPathToW3CNodeList(String xpathQuery) throws XPathExpressionException {
+    return (NodeList) xpath.evaluate(xpathQuery, inputSource(), XPathConstants.NODESET);
   }
 
   private InputSource inputSource() {
