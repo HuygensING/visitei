@@ -90,13 +90,12 @@ public class XPathUtil {
     try {
       XMLStreamReader xreader = inputFactory.createXMLStreamReader(IOUtils.toInputStream(xml, "UTF-8"));
       while (xreader.hasNext()) {
-        int evt = xreader.next();
-        if (evt == XMLStreamConstants.START_ELEMENT) {
+        if (xreader.next() == XMLStreamConstants.START_ELEMENT) {
           QName qName = xreader.getName();
-          //          Log.info("qname={}:{} [{}]", qName.getPrefix(), qName.getLocalPart(), qName.getNamespaceURI());
           if (qName != null) {
-            if (qName.getPrefix() != null) {
-              namespaces.put(qName.getPrefix(), qName.getNamespaceURI());
+            addNamespace(namespaces, qName.getPrefix(), qName.getNamespaceURI());
+            for (int i = 0; i < xreader.getAttributeCount(); i++) {
+              addNamespace(namespaces, xreader.getAttributePrefix(i), xreader.getAttributeNamespace(i));
             }
           }
         }
@@ -107,6 +106,15 @@ public class XPathUtil {
       e.printStackTrace();
     }
     return namespaces;
+  }
+
+  private static void addNamespace(Map<String, String> namespaces, String prefix, String namespace) {
+    if (prefix != null) {
+      if (namespace == null || "".equals(namespace)) {
+        namespace = "http://ns.example.org/ns/" + prefix;
+      }
+      namespaces.put(prefix, namespace);
+    }
   }
 
 }
