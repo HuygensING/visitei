@@ -119,8 +119,8 @@ public class QueryableDocument {
     return (String) xpath.evaluate(xpathQuery, inputSource(), XPathConstants.STRING);
   }
 
-  public Long evaluateXPathToLong(String xpathQuery) throws XPathExpressionException {
-    return (Long) xpath.evaluate(xpathQuery, inputSource(), XPathConstants.NUMBER);
+  public Double evaluateXPathToDouble(String xpathQuery) throws XPathExpressionException {
+    return (Double) xpath.evaluate(xpathQuery, inputSource(), XPathConstants.NUMBER);
   }
 
   public Boolean evaluateXPathToBoolean(String xpathQuery) throws XPathExpressionException {

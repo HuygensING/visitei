@@ -10,12 +10,12 @@ package nl.knaw.huygens.tei;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -70,6 +70,16 @@ public class QueryableDocumentTest {
     assertEquals("1", result);
     result = document.evaluateXPathToString("//b[2]");
     assertEquals("2", result);
+  }
+
+  @Test
+  public void testXPathEvaluationToDouble() throws XPathExpressionException {
+    String xml = "<root><x><name>\n" + //
+        "<x/><name/></name></x><text>hello\n" + //
+        " world</text></root>";
+    QueryableDocument document = QueryableDocument.createFromXml(xml, true);
+    Double result = document.evaluateXPathToDouble("count(//x)");
+    assertTrue(result == 2);
   }
 
   //  @Test
