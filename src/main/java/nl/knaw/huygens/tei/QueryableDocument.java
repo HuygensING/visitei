@@ -133,8 +133,7 @@ public class QueryableDocument {
   }
 
   private InputSource inputSource() {
-    InputSource source = new InputSource(new StringReader(xml));
-    return source;
+    return new InputSource(new StringReader(xml));
   }
 
   // --- delegated methods -------------------------------------
