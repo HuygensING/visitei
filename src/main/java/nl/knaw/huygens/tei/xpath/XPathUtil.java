@@ -51,7 +51,7 @@ import net.sf.practicalxml.xpath.NamespaceResolver;
 public class XPathUtil {
   static XPath xpath = XPathFactory.newInstance().newXPath();
 
-  static Map<Class<?>, QName> returnTypes = ImmutableMap.<Class<?>, QName> builder()//
+  private static Map<Class<?>, QName> returnTypes = ImmutableMap.<Class<?>, QName> builder()//
       .put(String.class, XPathConstants.STRING)//
       .put(Boolean.class, XPathConstants.BOOLEAN)//
       .put(Long.class, XPathConstants.NUMBER)//
