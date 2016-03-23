@@ -117,7 +117,12 @@ public class DocumentFactory extends DefaultHandler2 {
     if (preserveNameSpacePrefix && !prefixMap.isEmpty()) {
       Set<Entry<String, String>> entrySet = this.prefixMap.entrySet();
       for (Entry<String, String> entry : entrySet) {
-        element.setAttribute("xmlns:" + entry.getKey(), entry.getValue());
+        String attrKey = "xmlns";
+        String key = entry.getKey();
+        if (!key.isEmpty()) {
+          attrKey = attrKey + ":" + key;
+        }
+        element.setAttribute(attrKey, entry.getValue());
       }
       prefixMap.clear();
     }
