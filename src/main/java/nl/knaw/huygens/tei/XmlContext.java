@@ -97,6 +97,10 @@ public class XmlContext implements Context {
     return text;
   }
 
+  public int getLayerLength() {
+    return textLayer.length();
+  }
+
   @Override
   public void addLiteral(Object object) {
     if (targetLanguage == null || targetLanguage.equals(languageStack.peek())) {
