@@ -1,7 +1,5 @@
 package nl.knaw.huygens.tei.export;
 
-import nl.knaw.huygens.Log;
-
 /*
  * #%L
  * VisiTEI
@@ -48,7 +46,6 @@ public class ExportVisitor extends DelegatingVisitor<XmlContext> {
     setTextHandler(new DefaultTextHandler<XmlContext>() {
       @Override
       protected String filterText(String text) {
-        Log.info("text=[{}]", text);
         int n = text.length();
         StringBuilder builder = new StringBuilder((int) (n * 1.1));
         for (int i = 0; i < n; i++) {
