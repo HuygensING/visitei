@@ -22,6 +22,7 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.base.Preconditions;
@@ -74,6 +75,13 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
   }
 
   public void addElementHandler(ElementHandler<T> handler, String... names) {
+    Preconditions.checkNotNull(handler);
+    for (String name : names) {
+      handlers.put(name, handler);
+    }
+  }
+
+  public void addElementHandler(ElementHandler<T> handler, List<String> names) {
     Preconditions.checkNotNull(handler);
     for (String name : names) {
       handlers.put(name, handler);
