@@ -232,11 +232,12 @@ public class Element extends SubNode {
     attributes.put(key, value);
   }
 
-  public void copyAttributeFrom(Element source, String key) {
+  public Element copyAttributeFrom(Element source, String key) {
     String value = source.getAttribute(key);
     if (value.length() != 0) {
       setAttribute(key, value);
     }
+    return this;
   }
 
   public String getLanguage() {
