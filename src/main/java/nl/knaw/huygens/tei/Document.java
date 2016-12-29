@@ -34,21 +34,21 @@ public class Document extends Node {
   private List<Node> footNodes = new ArrayList<Node>();
 
   /**
-  *
-  * @param xml  xml source
-  * @param preserveNamespacePrefix preserve the namespace prefix for an Elements attributes
-  * @return the Document
-  */
+   *
+   * @param xml  xml source
+   * @param preserveNamespacePrefix preserve the namespace prefix for an Elements attributes
+   * @return the Document
+   */
   public static Document createFromXml(String xml, boolean preserveNamespacePrefix) {
     return new DocumentFactory(xml, preserveNamespacePrefix).getDocument();
   }
 
   /**
-   * @param xml  xml source
-   * @deprecated
-   *   use {@link #createFromXml(String,boolean)} to explicitly indicate whether to preserve the namespace prefix for an Elements attributes
-   * @return the Document
-   */
+    * @param xml  xml source
+    * @deprecated
+    *   use {@link #createFromXml(String,boolean)} to explicitly indicate whether to preserve the namespace prefix for an Elements attributes
+    * @return the Document
+    */
   @Deprecated
   public static Document createFromXml(String xml) {
     return new DocumentFactory(xml, false).getDocument();

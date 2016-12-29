@@ -56,18 +56,15 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
   }
 
   public void setTextHandler(TextHandler<T> handler) {
-    Preconditions.checkNotNull(handler);
-    textHandler = handler;
+    textHandler = Preconditions.checkNotNull(handler);
   }
 
   public void setCommentHandler(CommentHandler<T> handler) {
-    Preconditions.checkNotNull(handler);
-    commentHandler = handler;
+    commentHandler = Preconditions.checkNotNull(handler);
   }
 
   public void setProcessingInstructionHandler(ProcessingInstructionHandler<T> handler) {
-    Preconditions.checkNotNull(handler);
-    processingInstructionHandler = handler;
+    processingInstructionHandler = Preconditions.checkNotNull(handler);
   }
 
   public void setDefaultElementHandler(ElementHandler<T> handler) {
@@ -86,6 +83,16 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
     for (String name : names) {
       handlers.put(name, handler);
     }
+  }
+
+  public DelegatingVisitor<T> withElementHandler(ElementHandler<T> handler, String... names) {
+    addElementHandler(handler, names);
+    return this;
+  }
+
+  public DelegatingVisitor<T> withElementHandler(ElementHandler<T> handler, List<String> names) {
+    addElementHandler(handler, names);
+    return this;
   }
 
   private ElementHandler<T> getElementHandler(Element element) {

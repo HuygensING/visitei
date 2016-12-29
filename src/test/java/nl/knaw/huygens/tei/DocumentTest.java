@@ -32,11 +32,11 @@ public class DocumentTest {
 
   @Test(expected = RuntimeException.class)
   public void testEmptyFile() {
-    Document.createFromXml("");
+    Document.createFromXml("", false);
   }
 
   private void testGetElementsByTagName(String xml, String name, int expected) {
-    Document document = Document.createFromXml(xml);
+    Document document = Document.createFromXml(xml, false);
     List<Element> elements = document.getElementsByTagName(name);
     assertEquals(expected, elements.size());
     for (Element element : elements) {
