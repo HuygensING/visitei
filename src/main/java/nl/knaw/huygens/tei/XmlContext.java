@@ -142,6 +142,7 @@ public class XmlContext implements Context {
 
   // -------------------------------------------------------------------
 
+  @Override
   public String getResult() {
     return filterResult(textLayer.toString());
   }

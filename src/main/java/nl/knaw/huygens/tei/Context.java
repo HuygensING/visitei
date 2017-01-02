@@ -26,4 +26,6 @@ public interface Context {
 
   void addLiteral(Object object);
 
+  String getResult();
+
 }

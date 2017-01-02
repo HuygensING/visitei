@@ -43,7 +43,7 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
   private ProcessingInstructionHandler<T> processingInstructionHandler;
 
   public DelegatingVisitor(T context) {
-    this.context = context;
+    this.context = Preconditions.checkNotNull(context);
     handlers = Maps.newHashMap();
     defaultHandler = new DefaultElementHandler<T>();
     textHandler = new DefaultTextHandler<T>();
@@ -53,6 +53,10 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
 
   public T getContext() {
     return context;
+  }
+
+  public String getResult() {
+    return context.getResult();
   }
 
   public void setTextHandler(TextHandler<T> handler) {

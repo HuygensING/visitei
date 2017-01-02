@@ -27,4 +27,9 @@ public class DefaultContext implements Context {
   @Override
   public void addLiteral(Object object) {}
 
+  @Override
+  public String getResult() {
+    return "";
+  }
+
 }
