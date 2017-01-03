@@ -1,13 +1,10 @@
 package nl.knaw.huygens.tei.xpath;
 
-import java.io.IOException;
-import java.io.StringReader;
-
 /*
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -25,6 +22,8 @@ import java.io.StringReader;
  * #L%
  */
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.Map;
 import java.util.Map.Entry;
 

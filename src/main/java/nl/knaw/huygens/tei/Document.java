@@ -1,12 +1,10 @@
 package nl.knaw.huygens.tei;
 
-import java.util.ArrayList;
-
 /*
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -24,6 +22,7 @@ import java.util.ArrayList;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -75,7 +74,7 @@ public class Document extends Node {
   }
 
   /**
-   * Returns a list of all elements with the specified tag name in the order
+   * Returns a list of all elements with the specified tag name, in the order
    * in which they are encountered in preorder traversal of the document tree.
    * @param name the specified tag name
    * @return a list of all elements with the specified tag name
@@ -86,6 +85,30 @@ public class Document extends Node {
       @Override
       public Traversal enterElement(Element element) {
         if (element.hasName(name)) {
+          elements.add(element);
+        }
+        return Traversal.NEXT;
+      }
+    };
+    accept(visitor);
+    return elements;
+  }
+
+  /**
+   * Returns a list of all elements with the specified tag name and attribute
+   * value, in the order in which they are encountered in preorder traversal
+   * of the document tree.
+   * @param name the tag name to match
+   * @param key the key of the attribute to match
+   * @param value the value of the attribute to match
+   * @return a list of all elements that meet the criteria
+   */
+  public List<Element> getElementsNameAndAttribute(final String name, final String key, final String value) {
+    final List<Element> elements = Lists.newArrayList();
+    Visitor visitor = new DefaultVisitor() {
+      @Override
+      public Traversal enterElement(Element element) {
+        if (element.hasName(name) && element.hasAttribute(key, value)) {
           elements.add(element);
         }
         return Traversal.NEXT;

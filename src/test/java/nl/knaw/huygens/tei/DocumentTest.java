@@ -4,7 +4,7 @@ package nl.knaw.huygens.tei;
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -143,6 +143,33 @@ public class DocumentTest {
     assertEquals(1, document.getStartColumn());
     assertEquals(3, document.getEndLine());
     assertEquals(21, document.getEndColumn());
+  }
+
+  // ---------------------------------------------------------------------------
+
+  private void testGetElementsByTagNameAndAttribute(String xml, String name, String key, String value, int expected) {
+    Document document = Document.createFromXml(xml, false);
+    List<Element> elements = document.getElementsNameAndAttribute(name, key, value);
+    assertEquals(expected, elements.size());
+    for (Element element : elements) {
+      assertEquals(name, element.getName());
+      assertEquals(value, element.getAttribute(key));
+    }
+  }
+
+  @Test
+  public void findNoElement() {
+    testGetElementsByTagNameAndAttribute("<root></root>", "name", "key", "value", 0);
+  }
+
+  @Test
+  public void findOneElement() {
+    testGetElementsByTagNameAndAttribute("<root><name key=\"value\"/><name key=\"value2\"/></root>", "name", "key", "value", 1);
+  }
+
+  @Test
+  public void findTwoElements() {
+    testGetElementsByTagNameAndAttribute("<root><name key=\"value\"><name key=\"value\"/><name key=\"value2\"/></name></root>", "name", "key", "value", 2);
   }
 
 }

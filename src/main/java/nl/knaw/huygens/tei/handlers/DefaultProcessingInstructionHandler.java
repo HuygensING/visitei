@@ -1,12 +1,10 @@
 package nl.knaw.huygens.tei.handlers;
 
-import nl.knaw.huygens.tei.Context;
-
 /*
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -24,6 +22,7 @@ import nl.knaw.huygens.tei.Context;
  * #L%
  */
 
+import nl.knaw.huygens.tei.Context;
 import nl.knaw.huygens.tei.ProcessingInstruction;
 import nl.knaw.huygens.tei.ProcessingInstructionHandler;
 import nl.knaw.huygens.tei.Traversal;
