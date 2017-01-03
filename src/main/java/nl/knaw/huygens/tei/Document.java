@@ -103,7 +103,7 @@ public class Document extends Node {
    * @param value the value of the attribute to match
    * @return a list of all elements that meet the criteria
    */
-  public List<Element> getElementsNameAndAttribute(final String name, final String key, final String value) {
+  public List<Element> getElementsByNameAndAttribute(final String name, final String key, final String value) {
     final List<Element> elements = Lists.newArrayList();
     Visitor visitor = new DefaultVisitor() {
       @Override

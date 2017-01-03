@@ -149,7 +149,7 @@ public class DocumentTest {
 
   private void testGetElementsByTagNameAndAttribute(String xml, String name, String key, String value, int expected) {
     Document document = Document.createFromXml(xml, false);
-    List<Element> elements = document.getElementsNameAndAttribute(name, key, value);
+    List<Element> elements = document.getElementsByNameAndAttribute(name, key, value);
     assertEquals(expected, elements.size());
     for (Element element : elements) {
       assertEquals(name, element.getName());
