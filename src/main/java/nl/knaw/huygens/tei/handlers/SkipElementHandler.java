@@ -23,31 +23,23 @@ package nl.knaw.huygens.tei.handlers;
  */
 
 import nl.knaw.huygens.tei.Context;
+import nl.knaw.huygens.tei.Element;
+import nl.knaw.huygens.tei.ElementHandler;
+import nl.knaw.huygens.tei.Traversal;
 
-public class XmlTextHandler<T extends Context> extends RenderTextHandler<T> {
+/**
+ * Ignores an element and its children.
+ */
+public class SkipElementHandler<T extends Context> implements ElementHandler<T> {
 
   @Override
-  protected String filterText(String text) {
-    int n = text.length();
-    StringBuilder builder = new StringBuilder((int) (n * 1.1));
-    for (int i = 0; i < n; i++) {
-      char c = text.charAt(i);
-      switch (c) {
-      case '<':
-        builder.append("&lt;");
-        break;
-      case '>':
-        builder.append("&gt;");
-        break;
-      case '&':
-        builder.append("&amp;");
-        break;
-      default:
-        builder.append(c);
-        break;
-      }
-    }
-    return builder.toString();
-    //    return StringEscapeUtils.escapeXml(text)
+  public Traversal enterElement(Element element, T context) {
+    return Traversal.STOP;
   }
+
+  @Override
+  public Traversal leaveElement(Element element, T context) {
+    return Traversal.NEXT;
+  }
+
 }

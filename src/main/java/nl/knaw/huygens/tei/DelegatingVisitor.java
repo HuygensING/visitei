@@ -27,10 +27,10 @@ import java.util.Map;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
-import nl.knaw.huygens.tei.handlers.DefaultCommentHandler;
+import nl.knaw.huygens.tei.handlers.RenderCommentHandler;
 import nl.knaw.huygens.tei.handlers.DefaultElementHandler;
-import nl.knaw.huygens.tei.handlers.DefaultProcessingInstructionHandler;
-import nl.knaw.huygens.tei.handlers.DefaultTextHandler;
+import nl.knaw.huygens.tei.handlers.RenderProcessingInstructionHandler;
+import nl.knaw.huygens.tei.handlers.RenderTextHandler;
 
 public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
 
@@ -45,9 +45,9 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
     this.context = context;
     handlers = Maps.newHashMap();
     defaultHandler = new DefaultElementHandler<T>();
-    textHandler = new DefaultTextHandler<T>();
-    commentHandler = new DefaultCommentHandler<T>();
-    processingInstructionHandler = new DefaultProcessingInstructionHandler<T>();
+    textHandler = new RenderTextHandler<T>();
+    commentHandler = new RenderCommentHandler<T>();
+    processingInstructionHandler = new RenderProcessingInstructionHandler<T>();
   }
 
   public T getContext() {

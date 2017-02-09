@@ -22,32 +22,20 @@ package nl.knaw.huygens.tei.handlers;
  * #L%
  */
 
+import nl.knaw.huygens.tei.Comment;
+import nl.knaw.huygens.tei.CommentHandler;
 import nl.knaw.huygens.tei.Context;
+import nl.knaw.huygens.tei.Traversal;
+/**
+ * Ignores comments
+ */
+public class IgnoreCommentHandler<T extends Context> implements CommentHandler<T> {
 
-public class XmlTextHandler<T extends Context> extends RenderTextHandler<T> {
+  public IgnoreCommentHandler() {}
 
   @Override
-  protected String filterText(String text) {
-    int n = text.length();
-    StringBuilder builder = new StringBuilder((int) (n * 1.1));
-    for (int i = 0; i < n; i++) {
-      char c = text.charAt(i);
-      switch (c) {
-      case '<':
-        builder.append("&lt;");
-        break;
-      case '>':
-        builder.append("&gt;");
-        break;
-      case '&':
-        builder.append("&amp;");
-        break;
-      default:
-        builder.append(c);
-        break;
-      }
-    }
-    return builder.toString();
-    //    return StringEscapeUtils.escapeXml(text)
+  public Traversal visitComment(Comment comment, T context) {
+    return Traversal.NEXT;
   }
+
 }

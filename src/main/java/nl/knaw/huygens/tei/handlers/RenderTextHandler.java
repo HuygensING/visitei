@@ -22,19 +22,27 @@ package nl.knaw.huygens.tei.handlers;
  * #L%
  */
 
-import nl.knaw.huygens.tei.Comment;
-import nl.knaw.huygens.tei.CommentHandler;
 import nl.knaw.huygens.tei.Context;
+import nl.knaw.huygens.tei.Text;
+import nl.knaw.huygens.tei.TextHandler;
 import nl.knaw.huygens.tei.Traversal;
 
-public class DefaultCommentHandler<T extends Context> implements CommentHandler<T> {
+/**
+ * Renders text as is
+ */
+public class RenderTextHandler<T extends Context> implements TextHandler<T> {
 
-  public DefaultCommentHandler() {}
+  public RenderTextHandler() {}
 
   @Override
-  public Traversal visitComment(Comment comment, T context) {
-    context.addLiteral(comment.toString());
+  public Traversal visitText(Text text, T context) {
+    String content = filterText(text.getText());
+    context.addLiteral(content);
     return Traversal.NEXT;
+  }
+
+  protected String filterText(String content) {
+    return content;
   }
 
 }

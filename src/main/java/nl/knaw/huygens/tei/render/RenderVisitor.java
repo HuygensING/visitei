@@ -25,7 +25,7 @@ package nl.knaw.huygens.tei.render;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Element;
 import nl.knaw.huygens.tei.XmlContext;
-import nl.knaw.huygens.tei.handlers.FilterElementHandler;
+import nl.knaw.huygens.tei.handlers.SkipElementHandler;
 import nl.knaw.huygens.tei.handlers.TransformElementHandler;
 
 /**
@@ -38,7 +38,7 @@ public class RenderVisitor extends DelegatingVisitor<XmlContext> {
 
     // Graphics: <figure>, <figDesc>, <graphic>
     addElementHandler(new FigureHandler(), "figure");
-    addElementHandler(new FilterElementHandler<XmlContext>(), "figDesc");
+    addElementHandler(new SkipElementHandler<XmlContext>(), "figDesc");
     addElementHandler(new GraphicHandler(imageUrlResolver), "graphic");
 
     // Lists: <list>, <item>, <label>

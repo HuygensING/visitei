@@ -1,7 +1,5 @@
 package nl.knaw.huygens.tei.handlers;
 
-import nl.knaw.huygens.tei.Context;
-
 /*
  * #%L
  * VisiTEI
@@ -24,17 +22,21 @@ import nl.knaw.huygens.tei.Context;
  * #L%
  */
 
-import nl.knaw.huygens.tei.ProcessingInstruction;
-import nl.knaw.huygens.tei.ProcessingInstructionHandler;
+import nl.knaw.huygens.tei.Comment;
+import nl.knaw.huygens.tei.CommentHandler;
+import nl.knaw.huygens.tei.Context;
 import nl.knaw.huygens.tei.Traversal;
 
-public class DefaultProcessingInstructionHandler<T extends Context> implements ProcessingInstructionHandler<T> {
+/**
+ * Renders comments as is
+ */
+public class RenderCommentHandler<T extends Context> implements CommentHandler<T> {
 
-  public DefaultProcessingInstructionHandler() {}
+  public RenderCommentHandler() {}
 
   @Override
-  public Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction, T context) {
-    context.addLiteral(processingInstruction.toString());
+  public Traversal visitComment(Comment comment, T context) {
+    context.addLiteral(comment.toString());
     return Traversal.NEXT;
   }
 

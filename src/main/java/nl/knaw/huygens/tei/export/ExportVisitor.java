@@ -26,7 +26,7 @@ import nl.knaw.huygens.Log;
 
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.XmlContext;
-import nl.knaw.huygens.tei.handlers.DefaultTextHandler;
+import nl.knaw.huygens.tei.handlers.RenderTextHandler;
 import nl.knaw.huygens.tei.handlers.RenderElementHandler;
 
 /**
@@ -45,7 +45,7 @@ public class ExportVisitor extends DelegatingVisitor<XmlContext> {
   public ExportVisitor() {
     super(new XmlContext());
     setDefaultElementHandler(new RenderElementHandler());
-    setTextHandler(new DefaultTextHandler<XmlContext>() {
+    setTextHandler(new RenderTextHandler<XmlContext>() {
       @Override
       protected String filterText(String text) {
         Log.info("text=[{}]", text);

@@ -54,6 +54,10 @@ public class DocumentFactory extends DefaultHandler2 {
   private Map<String, String> prefixMap = Maps.newHashMap();
 
   public DocumentFactory(String xml, boolean _preserveNamespacePrefix) {
+    this(new InputSource(new StringReader(xml)),_preserveNamespacePrefix);
+  }
+
+  public DocumentFactory(InputSource inputSource, boolean _preserveNamespacePrefix) {
     preserveNameSpacePrefix = _preserveNamespacePrefix;
     elementStack = new ArrayDeque<Element>();
     document = new Document();
@@ -63,7 +67,7 @@ public class DocumentFactory extends DefaultHandler2 {
       parser.setContentHandler(this);
       parser.setEntityResolver(this);
       parser.setProperty("http://xml.org/sax/properties/lexical-handler", this);
-      parser.parse(new InputSource(new StringReader(xml)));
+      parser.parse(inputSource);
     } catch (SAXException e) {
       throw new RuntimeException(e);
     } catch (IOException e) {

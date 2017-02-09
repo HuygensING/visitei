@@ -27,11 +27,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import org.xml.sax.InputSource;
 
 public class Document extends Node {
   private Element root;
   private List<Node> headNodes = new ArrayList<Node>();
   private List<Node> footNodes = new ArrayList<Node>();
+
+  /**
+   *
+   * @param inputSource  inputSource
+   * @param preserveNamespacePrefix preserve the namespace prefix for an Elements attributes
+   * @return the Document
+   */
+  public static Document createFromInputSource(InputSource inputSource, boolean preserveNamespacePrefix) {
+    return new DocumentFactory(inputSource, preserveNamespacePrefix).getDocument();
+  }
 
   /**
   *
