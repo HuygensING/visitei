@@ -4,7 +4,7 @@ package nl.knaw.huygens.tei;
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,6 +22,7 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.base.Preconditions;
@@ -42,7 +43,7 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
   private ProcessingInstructionHandler<T> processingInstructionHandler;
 
   public DelegatingVisitor(T context) {
-    this.context = context;
+    this.context = Preconditions.checkNotNull(context);
     handlers = Maps.newHashMap();
     defaultHandler = new DefaultElementHandler<T>();
     textHandler = new RenderTextHandler<T>();
@@ -54,19 +55,20 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
     return context;
   }
 
+  public String getResult() {
+    return context.getResult();
+  }
+
   public void setTextHandler(TextHandler<T> handler) {
-    Preconditions.checkNotNull(handler);
-    textHandler = handler;
+    textHandler = Preconditions.checkNotNull(handler);
   }
 
   public void setCommentHandler(CommentHandler<T> handler) {
-    Preconditions.checkNotNull(handler);
-    commentHandler = handler;
+    commentHandler = Preconditions.checkNotNull(handler);
   }
 
   public void setProcessingInstructionHandler(ProcessingInstructionHandler<T> handler) {
-    Preconditions.checkNotNull(handler);
-    processingInstructionHandler = handler;
+    processingInstructionHandler = Preconditions.checkNotNull(handler);
   }
 
   public void setDefaultElementHandler(ElementHandler<T> handler) {
@@ -78,6 +80,23 @@ public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
     for (String name : names) {
       handlers.put(name, handler);
     }
+  }
+
+  public void addElementHandler(ElementHandler<T> handler, List<String> names) {
+    Preconditions.checkNotNull(handler);
+    for (String name : names) {
+      handlers.put(name, handler);
+    }
+  }
+
+  public DelegatingVisitor<T> withElementHandler(ElementHandler<T> handler, String... names) {
+    addElementHandler(handler, names);
+    return this;
+  }
+
+  public DelegatingVisitor<T> withElementHandler(ElementHandler<T> handler, List<String> names) {
+    addElementHandler(handler, names);
+    return this;
   }
 
   private ElementHandler<T> getElementHandler(Element element) {

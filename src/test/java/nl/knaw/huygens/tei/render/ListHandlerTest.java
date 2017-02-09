@@ -4,7 +4,7 @@ package nl.knaw.huygens.tei.render;
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,16 +26,17 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import nl.knaw.huygens.tei.DelegatingVisitor;
 import nl.knaw.huygens.tei.Document;
+import nl.knaw.huygens.tei.Documents;
 import nl.knaw.huygens.tei.XmlContext;
 
 public class ListHandlerTest {
 
   private String process(String xml) {
-    Document document = Document.createFromXml(xml);
+    Document document = Documents.newDocument(xml);
     DelegatingVisitor<XmlContext> visitor = new DelegatingVisitor<XmlContext>(new XmlContext());
     visitor.addElementHandler(new ListHandler(), "list", "item", "label");
     document.accept(visitor);
-    return visitor.getContext().getResult();
+    return visitor.getResult();
   }
 
   @Test

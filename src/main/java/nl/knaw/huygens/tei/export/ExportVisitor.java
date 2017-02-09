@@ -1,12 +1,10 @@
 package nl.knaw.huygens.tei.export;
 
-import nl.knaw.huygens.Log;
-
 /*
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -48,7 +46,6 @@ public class ExportVisitor extends DelegatingVisitor<XmlContext> {
     setTextHandler(new RenderTextHandler<XmlContext>() {
       @Override
       protected String filterText(String text) {
-        Log.info("text=[{}]", text);
         int n = text.length();
         StringBuilder builder = new StringBuilder((int) (n * 1.1));
         for (int i = 0; i < n; i++) {

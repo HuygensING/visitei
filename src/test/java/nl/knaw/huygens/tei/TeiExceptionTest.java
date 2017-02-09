@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei.handlers;
+package nl.knaw.huygens.tei;
 
 /*
  * #%L
@@ -22,26 +22,21 @@ package nl.knaw.huygens.tei.handlers;
  * #L%
  */
 
-import nl.knaw.huygens.tei.Context;
-import nl.knaw.huygens.tei.Element;
-import nl.knaw.huygens.tei.ElementHandler;
-import nl.knaw.huygens.tei.Traversal;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Handles element silently.
- */
-public class DefaultElementHandler<T extends Context> implements ElementHandler<T> {
+import org.junit.Test;
 
-  public DefaultElementHandler() {}
+public class TeiExceptionTest {
 
-  @Override
-  public Traversal enterElement(Element element, T context) {
-    return Traversal.NEXT;
+  @Test(expected = Exception.class)
+  public void testThrowing() throws TeiException {
+    throw new TeiException();
   }
 
-  @Override
-  public Traversal leaveElement(Element element, T context) {
-    return Traversal.NEXT;
+  @Test
+  public void testFormatting() {
+    TeiException e = new TeiException("Test %d", 1);
+    assertEquals("Test 1", e.getMessage());
   }
 
 }

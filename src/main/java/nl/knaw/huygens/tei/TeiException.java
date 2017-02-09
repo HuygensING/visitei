@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei.handlers;
+package nl.knaw.huygens.tei;
 
 /*
  * #%L
@@ -22,26 +22,21 @@ package nl.knaw.huygens.tei.handlers;
  * #L%
  */
 
-import nl.knaw.huygens.tei.Context;
-import nl.knaw.huygens.tei.Element;
-import nl.knaw.huygens.tei.ElementHandler;
-import nl.knaw.huygens.tei.Traversal;
-
 /**
- * Handles element silently.
+ * Thrown when an error occurs while processing a TEI document.
  */
-public class DefaultElementHandler<T extends Context> implements ElementHandler<T> {
+public class TeiException extends Exception {
 
-  public DefaultElementHandler() {}
+  private static final long serialVersionUID = 1L;
 
-  @Override
-  public Traversal enterElement(Element element, T context) {
-    return Traversal.NEXT;
+  public TeiException() {}
+
+  public TeiException(String message) {
+    super(message);
   }
 
-  @Override
-  public Traversal leaveElement(Element element, T context) {
-    return Traversal.NEXT;
+  public TeiException(String format, Object... args) {
+    super(String.format(format, args));
   }
 
 }

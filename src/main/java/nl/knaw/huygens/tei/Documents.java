@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei.handlers;
+package nl.knaw.huygens.tei;
 
 /*
  * #%L
@@ -10,38 +10,31 @@ package nl.knaw.huygens.tei.handlers;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
 
-import nl.knaw.huygens.tei.Context;
-import nl.knaw.huygens.tei.Element;
-import nl.knaw.huygens.tei.ElementHandler;
-import nl.knaw.huygens.tei.Traversal;
+public class Documents {
 
-/**
- * Handles element silently.
- */
-public class DefaultElementHandler<T extends Context> implements ElementHandler<T> {
-
-  public DefaultElementHandler() {}
-
-  @Override
-  public Traversal enterElement(Element element, T context) {
-    return Traversal.NEXT;
+  public static Document newDocument(String xml) {
+    return Document.createFromXml(xml, true);
   }
 
-  @Override
-  public Traversal leaveElement(Element element, T context) {
-    return Traversal.NEXT;
+  public static <T extends Visitor> T visitXml(String xml, T visitor) {
+    newDocument(xml).accept(visitor);
+    return visitor;
+  }
+
+  private Documents() {
+    throw new AssertionError("Non-instantiable class");
   }
 
 }

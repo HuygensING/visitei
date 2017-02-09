@@ -4,7 +4,7 @@ package nl.knaw.huygens.tei;
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -97,6 +97,10 @@ public class XmlContext implements Context {
     return text;
   }
 
+  public int getLayerLength() {
+    return textLayer.length();
+  }
+
   @Override
   public void addLiteral(Object object) {
     if (targetLanguage == null || targetLanguage.equals(languageStack.peek())) {
@@ -138,6 +142,7 @@ public class XmlContext implements Context {
 
   // -------------------------------------------------------------------
 
+  @Override
   public String getResult() {
     return filterResult(textLayer.toString());
   }

@@ -4,7 +4,7 @@ package nl.knaw.huygens.tei;
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2016 Huygens ING
+ * Copyright (C) 2011 - 2017 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -215,4 +215,20 @@ public class ElementTest {
     assertEquals(2, original.getAttributeNames().size());
   }
 
+  @Test
+  public void testCopyMissingAttribute() {
+    Element source = new Element("source");
+    Element target = new Element("target").copyAttributeFrom(source, "key1", "key2");
+    assertEquals("", target.getAttribute("key1"));
+    assertEquals("", target.getAttribute("key2"));
+  }
+ 
+  @Test
+  public void testCopyExistingAttribute() {
+    Element source = new Element("source").withAttribute("key1", "value");
+    Element target = new Element("target").copyAttributeFrom(source, "key1", "key2");
+    assertEquals("", target.getAttribute("key1"));
+    assertEquals("value", target.getAttribute("key2"));
+  }
+ 
 }
