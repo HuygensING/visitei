@@ -48,7 +48,6 @@ import com.google.common.collect.Maps;
 import net.sf.practicalxml.xpath.NamespaceResolver;
 
 public class XPathUtil {
-  static XPath xpath = XPathFactory.newInstance().newXPath();
 
   private static Map<Class<?>, QName> returnTypes = ImmutableMap.<Class<?>, QName> builder()//
       .put(String.class, XPathConstants.STRING)//
@@ -59,6 +58,7 @@ public class XPathUtil {
       .build();
 
   public static <T> T evaluate(String xpathQuery, String xml, Class<T> resultClass) throws XPathExpressionException {
+    XPath xpath = XPathFactory.newInstance().newXPath();
     Map<String, String> namespaceInfo = getNamespaceInfo(xml);
     NamespaceResolver nr = new NamespaceResolver();
     for (Entry<String, String> entry : namespaceInfo.entrySet()) {
