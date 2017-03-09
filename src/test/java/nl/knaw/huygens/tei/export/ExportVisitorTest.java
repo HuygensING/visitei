@@ -26,11 +26,24 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import nl.knaw.huygens.tei.Document;
 
 public class ExportVisitorTest {
+
+  private DocumentExporter exporter;
+
+  @Before
+  public void setupExporter() {
+    exporter = new DefaultDocumentExporter();
+  }
+
+  private String process(String xml) {
+    Document document = Document.createFromXml(xml, true);
+    return exporter.apply(document);
+  }
 
   @Test
   public void testBasicXml() {
@@ -85,13 +98,6 @@ public class ExportVisitorTest {
     assertEquals(xml.length(), normalized.length());
     // Normalized xml should be idempotent
     assertEquals(normalized, process(normalized));
-  }
-
-  private String process(String xml) {
-    Document document = Document.createFromXml(xml, true);
-    ExportVisitor visitor = new ExportVisitor();
-    document.accept(visitor);
-    return visitor.getContext().getResult();
   }
 
 }
