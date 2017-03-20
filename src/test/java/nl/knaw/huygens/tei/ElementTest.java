@@ -103,6 +103,13 @@ public class ElementTest {
   }
 
   @Test
+  public void testSetNormalizedXmlId() {
+    Element element = new Element("p");
+    element.setNormalizedXmlId(42);
+    assertEquals("p-42", element.getXmlId());
+  }
+
+  @Test
   public void testHasLanguage() {
     assertFalse(new Element("name").hasLanguage());
     assertFalse(new Element("name").withAttribute("lang", "").hasLanguage());

@@ -156,6 +156,7 @@ public class Element extends SubNode {
 
   // --- Attributes ----------------------------------------------------
 
+  public static final String XML_ID = "xml:id";
   public static final String LANGUAGE = "lang";
   public static final String RENDITION = "rend";
   public static final String TYPE = "type";
@@ -242,6 +243,19 @@ public class Element extends SubNode {
 
   public Element copyAttributeFrom(Element source, String key) {
     return copyAttributeFrom(source, key, key);
+  }
+
+  public String getXmlId() {
+    return getAttribute(XML_ID);
+  }
+
+  public void setXmlId(String value) {
+    setAttribute(XML_ID, value);
+  }
+
+  public void setNormalizedXmlId(int number) {
+    String value = String.format("%s-%d", getName(), number);
+    setAttribute(XML_ID, value);
   }
 
   public String getLanguage() {
