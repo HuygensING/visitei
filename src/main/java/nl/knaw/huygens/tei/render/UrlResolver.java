@@ -4,7 +4,7 @@ package nl.knaw.huygens.tei.render;
  * #%L
  * VisiTEI
  * =======
- * Copyright (C) 2011 - 2017 Huygens ING
+ * Copyright (C) 2011 - 2021 Huygens ING
  * =======
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
