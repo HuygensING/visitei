@@ -18,7 +18,7 @@
 
     <commons-io.version>2.5</commons-io.version>
     <guava.version>20.0</guava.version>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <practicalxml.version>1.1.19</practicalxml.version>
     <xercesImpl.version>2.11.0</xercesImpl.version>
   </properties>
