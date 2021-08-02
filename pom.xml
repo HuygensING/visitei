@@ -11,7 +11,7 @@
     <encoding>UTF-8</encoding>
     <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
-    <jdk.version>1.6</jdk.version>
+    <jdk.version>1.8</jdk.version>
 
     <maven-license.version>1.8</maven-license.version>
     <wagon-ssh.version>3.4.3</wagon-ssh.version>
