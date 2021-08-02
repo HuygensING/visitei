@@ -101,8 +101,6 @@ public class XPathUtil {
       }
     } catch (XMLStreamException e) {
       e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
     }
     return namespaces;
   }
