@@ -14,7 +14,7 @@
     <jdk.version>1.6</jdk.version>
 
     <maven-license.version>1.8</maven-license.version>
-    <wagon-ssh.version>2.2</wagon-ssh.version>
+    <wagon-ssh.version>3.4.3</wagon-ssh.version>
 
     <commons-io.version>2.5</commons-io.version>
     <guava.version>20.0</guava.version>
