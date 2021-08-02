@@ -13,12 +13,12 @@
     <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
     <jdk.version>1.8</jdk.version>
 
-    <maven-license.version>1.8</maven-license.version>
+    <maven-license.version>2.0.0</maven-license.version>
     <wagon-ssh.version>3.4.3</wagon-ssh.version>
 
-    <commons-io.version>2.5</commons-io.version>
+    <commons-io.version>2.11.0</commons-io.version>
     <guava.version>20.0</guava.version>
-    <junit.version>4.13.1</junit.version>
+    <junit.version>4.13.2</junit.version>
     <practicalxml.version>1.1.19</practicalxml.version>
     <xercesImpl.version>2.12.1</xercesImpl.version>
   </properties>
@@ -72,7 +72,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>3.8.1</version>
         <configuration>
           <source>${jdk.version}</source>
           <target>${jdk.version}</target>
@@ -102,7 +102,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>2.4</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -116,7 +116,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>3.2.0</version>
+        <configuration>
+          <source>${jdk.version}</source>
+        </configuration>
         <executions>
           <execution>
             <id>attach-javadocs</id>

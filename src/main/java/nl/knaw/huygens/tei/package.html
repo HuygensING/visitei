@@ -29,12 +29,13 @@ String xml = ...
 Visitor visitor = new VisitorImpl();
 Document document = Document.createFromXml(xml);
 document.accept(visitor);
-</pre></p>
+</pre>
+</p>
 <p>More sophisticated implementations may benefit from extending the
 <code>DelegatingVisitor</code> class, which allows handlers for specific
 elements to be registered. For example:<pre>
 String xml = ...
-DelegatingVisitor<XmlContext> visitor = new MyDelegatingVisitor();
+DelegatingVisitor&lt;XmlContext&gt; visitor = new MyDelegatingVisitor();
 Document document = Document.createFromXml(xml);
 document.accept(visitor);
 String text = visitor.getContext().getResult();
