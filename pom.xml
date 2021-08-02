@@ -140,7 +140,7 @@
 
   <organization>
     <name>Huygens ING</name>
-    <url>http://www.huygens.knaw.nl/</url>
+    <url>https://www.huygens.knaw.nl/</url>
   </organization>
 
   <prerequisites>
@@ -165,7 +165,7 @@
   <repositories>
     <repository>
       <id>huygens</id>
-      <url>http://maven.huygens.knaw.nl/repository/</url>
+      <url>https://maven.huygens.knaw.nl/repository/</url>
       <releases>
         <enabled>true</enabled>
         <updatePolicy>always</updatePolicy>
