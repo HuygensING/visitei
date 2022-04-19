@@ -20,7 +20,7 @@
     <guava.version>20.0</guava.version>
     <junit.version>4.13.2</junit.version>
     <practicalxml.version>1.1.19</practicalxml.version>
-    <xercesImpl.version>2.12.1</xercesImpl.version>
+    <xercesImpl.version>2.12.2</xercesImpl.version>
   </properties>
 
   <dependencies>
