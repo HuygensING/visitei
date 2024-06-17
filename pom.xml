@@ -222,10 +222,6 @@
         <url>https://www.huygens.knaw.nl/</url>
     </organization>
 
-    <prerequisites>
-        <maven>3.0</maven>
-    </prerequisites>
-
     <distributionManagement>
         <repository>
             <id>maven.huygens</id>
