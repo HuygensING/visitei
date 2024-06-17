@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -25,19 +25,9 @@ package nl.knaw.huygens.tei;
 /**
  * Ancestor for elements, comments and text in the DOM.
  */
-public abstract class SubNode extends Node {
-  private Element parent = null;
+abstract class SubNode : Node() {
+    var parent: Element? = null
 
-  public Element getParent() {
-    return parent;
-  }
-
-  public void setParent(Element parent) {
-    this.parent = parent;
-  }
-
-  public boolean hasParentWithName(String name) {
-    return (parent != null) && parent.hasName(name);
-  }
-
+    fun hasParentWithName(name: String): Boolean =
+        (parent != null) && parent!!.hasName(name)
 }

@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -25,48 +25,16 @@ package nl.knaw.huygens.tei;
 /**
  * Ancestor for document, elements and text in the DOM.
  */
-public abstract class Node {
+abstract class Node {
+    abstract fun accept(visitor: Visitor): Traversal
 
-  public static final int UNSPECIFIED = -1;
+    // locator info
+    open var startLine: Int = UNSPECIFIED
+    open var startColumn: Int = UNSPECIFIED
+    var endLine: Int = UNSPECIFIED
+    var endColumn: Int = UNSPECIFIED
 
-  public abstract Traversal accept(Visitor visitor);
-
-  // locator info
-  private int startLine = UNSPECIFIED;
-  private int startColumn = UNSPECIFIED;
-  private int endLine = UNSPECIFIED;
-  private int endColumn = UNSPECIFIED;
-
-  protected void setStartLine(int lineNumber) {
-    startLine = lineNumber;
-  }
-
-  public int getStartLine() {
-    return startLine;
-  }
-
-  protected void setStartColumn(int columnNumber) {
-    startColumn = columnNumber;
-  }
-
-  public int getStartColumn() {
-    return startColumn;
-  }
-
-  protected void setEndLine(int lineNumber) {
-    endLine = lineNumber;
-  }
-
-  public int getEndLine() {
-    return endLine;
-  }
-
-  protected void setEndColumn(int columnNumber) {
-    endColumn = columnNumber;
-  }
-
-  public int getEndColumn() {
-    return endColumn;
-  }
-
+    companion object {
+        const val UNSPECIFIED: Int = -1
+    }
 }

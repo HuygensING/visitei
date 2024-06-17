@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,8 +22,6 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public interface CommentHandler<T extends Context> {
-
-  Traversal visitComment(Comment comment, T context);
-
+interface CommentHandler<T : Context> {
+    fun visitComment(comment: Comment, context: T): Traversal
 }

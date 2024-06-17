@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,38 +22,24 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class Text extends SubNode {
+class Text : SubNode {
+    // -------------------------------------------------------------------
+    var text: String
 
-  private String text;
+    constructor(chars: CharArray, start: Int, length: Int) {
+        text = String(chars, start, length)
+    }
 
-  public Text(char[] chars, int start, int length) {
-    text = new String(chars, start, length);
-  }
+    constructor(text: String) {
+        this.text = text
+    }
 
-  public Text(String text) {
-    this.text = text;
-  }
+    // --- visiting ------------------------------------------------------
+    override fun accept(visitor: Visitor): Traversal {
+        return visitor.visitText(this)
+    }
 
-  // --- visiting ------------------------------------------------------
-
-  @Override
-  public Traversal accept(Visitor visitor) {
-    return visitor.visitText(this);
-  }
-
-  // -------------------------------------------------------------------
-
-  public String getText() {
-    return text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
-  }
-
-  @Override
-  public String toString() {
-    return text;
-  }
-
+    override fun toString(): String {
+        return text
+    }
 }

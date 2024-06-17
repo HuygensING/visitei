@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -25,41 +25,32 @@ package nl.knaw.huygens.tei;
 /**
  * A visitor that merely traverses the document tree.
  */
-public class DefaultVisitor implements Visitor {
+open class DefaultVisitor : Visitor {
+    override fun enterDocument(document: Document): Traversal {
+        return Traversal.NEXT
+    }
 
-  @Override
-  public Traversal enterDocument(Document document) {
-    return Traversal.NEXT;
-  }
+    override fun leaveDocument(document: Document): Traversal {
+        return Traversal.NEXT
+    }
 
-  @Override
-  public Traversal leaveDocument(Document document) {
-    return Traversal.NEXT;
-  }
+    override fun enterElement(element: Element): Traversal {
+        return Traversal.NEXT
+    }
 
-  @Override
-  public Traversal enterElement(Element element) {
-    return Traversal.NEXT;
-  }
+    override fun leaveElement(element: Element): Traversal {
+        return Traversal.NEXT
+    }
 
-  @Override
-  public Traversal leaveElement(Element element) {
-    return Traversal.NEXT;
-  }
+    override fun visitText(text: Text): Traversal {
+        return Traversal.NEXT
+    }
 
-  @Override
-  public Traversal visitText(Text text) {
-    return Traversal.NEXT;
-  }
+    override fun visitComment(comment: Comment): Traversal {
+        return Traversal.NEXT
+    }
 
-  @Override
-  public Traversal visitComment(Comment comment) {
-    return Traversal.NEXT;
-  }
-
-  @Override
-  public Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction) {
-    return Traversal.NEXT;
-  }
-
+    override fun visitProcessingInstruction(processingInstruction: ProcessingInstruction): Traversal {
+        return Traversal.NEXT
+    }
 }

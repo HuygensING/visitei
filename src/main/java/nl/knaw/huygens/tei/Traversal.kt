@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -25,15 +25,16 @@ package nl.knaw.huygens.tei;
 /**
  * Formalizes the notion what to do when traversing the DOM.
  */
-public enum Traversal {
-  NEXT, STOP;
+enum class Traversal {
+    NEXT, STOP;
 
-  public static Traversal nextIf(boolean condition) {
-    return condition ? Traversal.NEXT : Traversal.STOP;
-  }
+    companion object {
+        fun nextIf(condition: Boolean): Traversal {
+            return if (condition) NEXT else STOP
+        }
 
-  public static Traversal stopIf(boolean condition) {
-    return condition ? Traversal.STOP : Traversal.NEXT;
-  }
-
+        fun stopIf(condition: Boolean): Traversal {
+            return if (condition) STOP else NEXT
+        }
+    }
 }

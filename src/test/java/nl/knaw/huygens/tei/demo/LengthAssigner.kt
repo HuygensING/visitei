@@ -43,7 +43,7 @@ object LengthAssigner {
     @JvmStatic
     fun main(args: Array<String>) {
         val file = File("data/test/grotius/a0001.xml")
-        val xml: String = Files.Companion.readTextFromFile(file)
+        val xml: String = Files.readTextFromFile(file)
 
         println("--------------------")
         process(xml, "p")

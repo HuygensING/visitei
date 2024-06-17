@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,67 +22,51 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class TextLayer {
+class TextLayer {
+    private val builder = StringBuilder()
 
-  private final StringBuilder builder;
+    fun length(): Int = builder.length
 
-  public TextLayer() {
-    builder = new StringBuilder();
-  }
+    override fun toString(): String = builder.toString()
 
-  public int length() {
-    return builder.length();
-  }
-
-  @Override
-  public String toString() {
-    return builder.toString();
-  }
-
-  // -------------------------------------------------------------------
-
-  public void addLiteral(Object literal) {
-    if (literal != null) {
-      builder.append(literal.toString());
+    // -------------------------------------------------------------------
+    fun addLiteral(literal: Any?) {
+        if (literal != null) {
+            builder.append(literal.toString())
+        }
     }
-  }
 
-  public void addOpenTag(Element element) {
-    if (element != null) {
-      element.appendOpenTagTo(builder);
+    fun addOpenTag(element: Element) {
+        element.appendOpenTagTo(builder)
     }
-  }
 
-  public void addOpenTag(String elementName) {
-    builder.append('<').append(elementName).append('>');
-  }
-
-  public void addCloseTag(Element element) {
-    if (element != null) {
-      element.appendCloseTagTo(builder);
+    fun addOpenTag(elementName: String) {
+        builder.append('<').append(elementName).append('>')
     }
-  }
 
-  public void addCloseTag(String elementName) {
-    builder.append('<').append('/').append(elementName).append('>');
-  }
+    fun addCloseTag(element: Element) {
+        element.appendCloseTagTo(builder)
+    }
 
-  public void addEmptyElementTag(Element element) {
-    element.appendEmptyElementTagTo(builder);
-  }
+    fun addCloseTag(elementName: String) {
+        builder.append('<').append('/').append(elementName).append('>')
+    }
 
-  public void addEmptyElementTag(String elementName) {
-    builder.append('<').append(elementName).append('/').append('>');
-  }
+    fun addEmptyElementTag(element: Element) {
+        element.appendEmptyElementTagTo(builder)
+    }
 
-  public void addComment(String comment) {
-    builder.append("<!-- ").append(comment).append(" -->");
-  }
+    fun addEmptyElementTag(elementName: String) {
+        builder.append('<').append(elementName).append('/').append('>')
+    }
 
-  public void addElement(Element element, Object content) {
-    addOpenTag(element);
-    addLiteral(content);
-    addCloseTag(element);
-  }
+    fun addComment(comment: String) {
+        builder.append("<!-- ").append(comment).append(" -->")
+    }
 
+    fun addElement(element: Element, content: Any) {
+        addOpenTag(element)
+        addLiteral(content)
+        addCloseTag(element)
+    }
 }

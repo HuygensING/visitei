@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -25,18 +25,14 @@ package nl.knaw.huygens.tei;
 /**
  * Thrown when an error occurs while processing a TEI document.
  */
-public class TeiException extends Exception {
+class TeiException : Exception {
+    constructor()
 
-  private static final long serialVersionUID = 1L;
+    constructor(message: String) : super(message)
 
-  public TeiException() {}
+    constructor(format: String, vararg args: Any) : super(String.format(format, *args))
 
-  public TeiException(String message) {
-    super(message);
-  }
-
-  public TeiException(String format, Object... args) {
-    super(String.format(format, args));
-  }
-
+    companion object {
+        private const val serialVersionUID = 1L
+    }
 }

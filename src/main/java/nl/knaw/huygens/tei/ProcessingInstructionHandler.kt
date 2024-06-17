@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,8 +22,6 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public interface ProcessingInstructionHandler<T extends Context> {
-
-  Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction, T context);
-
+interface ProcessingInstructionHandler<T : Context> {
+    fun visitProcessingInstruction(processingInstruction: ProcessingInstruction, context: T): Traversal
 }

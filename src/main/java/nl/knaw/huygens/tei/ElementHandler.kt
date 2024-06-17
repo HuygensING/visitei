@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,10 +22,8 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public interface ElementHandler<T extends Context> {
+interface ElementHandler<T : Context> {
+    fun enterElement(element: Element, context: T): Traversal
 
-  Traversal enterElement(Element element, T context);
-
-  Traversal leaveElement(Element element, T context);
-
+    fun leaveElement(element: Element, context: T): Traversal
 }

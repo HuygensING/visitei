@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,14 +22,9 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class DefaultContext implements Context {
+class DefaultContext : Context {
+    override fun addLiteral(`object`: Any) {}
 
-  @Override
-  public void addLiteral(Object object) {}
-
-  @Override
-  public String getResult() {
-    return "";
-  }
-
+    override val result: String
+        get() = ""
 }

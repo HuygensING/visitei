@@ -24,15 +24,18 @@
 <body>
 <p>The VisiTEI project implements a hierarchical visitor approach to handling TEI.</p>
 <p>Given an implementation <code>VisitorImpl</code> of <code>Visitor</code>
-the basic use case is as follows:<pre>
+    the basic use case is as follows:
+<pre>
 String xml = ...
 Visitor visitor = new VisitorImpl();
 Document document = Document.createFromXml(xml);
 document.accept(visitor);
-</pre></p>
+</pre>
+</p>
 <p>More sophisticated implementations may benefit from extending the
-<code>DelegatingVisitor</code> class, which allows handlers for specific
-elements to be registered. For example:<pre>
+    <code>DelegatingVisitor</code> class, which allows handlers for specific
+    elements to be registered. For example:
+<pre>
 String xml = ...
 DelegatingVisitor<XmlContext> visitor = new MyDelegatingVisitor();
 Document document = Document.createFromXml(xml);

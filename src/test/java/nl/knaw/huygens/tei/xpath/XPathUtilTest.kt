@@ -2,8 +2,8 @@ package nl.knaw.huygens.tei.xpath
 
 import javax.xml.xpath.XPathExpressionException
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.Test
-import nl.knaw.huygens.Log
 import nl.knaw.huygens.tei.QueryableDocument
 
 /*
@@ -34,7 +34,9 @@ class XPathUtilTest {
         val xml =
             """<a xmlns="http://ns.example.com/whatever" xmlns:a="http://ns.example.com/whatever/a">whaterver, <a:person>dude</a:person></a>"""
         val namespaceInfo = XPathUtil.getNamespaceInfo(xml)
-        Log.info("namespaces = {}", namespaceInfo)
+        assertTrue(namespaceInfo.entries.size == 2)
+        assertTrue(namespaceInfo.containsKey("a"))
+//        Log.info("namespaces = {}", namespaceInfo)
     }
 
     @Test

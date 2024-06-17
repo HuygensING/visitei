@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,10 +22,8 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public interface Context {
+interface Context {
+    fun addLiteral(`object`: Any)
 
-  void addLiteral(Object object);
-
-  String getResult();
-
+    val result: String
 }

@@ -1,134 +1,115 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
+
+import com.google.common.base.Preconditions
+import com.google.common.collect.Maps
+import nl.knaw.huygens.tei.handlers.DefaultElementHandler
+import nl.knaw.huygens.tei.handlers.RenderCommentHandler
+import nl.knaw.huygens.tei.handlers.RenderProcessingInstructionHandler
+import nl.knaw.huygens.tei.handlers.RenderTextHandler
 
 /*
- * #%L
- * VisiTEI
- * =======
- * Copyright (C) 2011 - 2021 Huygens ING
- * =======
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
- * #L%
- */
+* #%L
+* VisiTEI
+* =======
+* Copyright (C) 2011 - 2021 Huygens ING
+* =======
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public
+* License along with this program.  If not, see
+* <http://www.gnu.org/licenses/gpl-3.0.html>.
+* #L%
+*/
 
-import java.util.List;
-import java.util.Map;
+open class DelegatingVisitor<T : Context>(context: T) : DefaultVisitor() {
+    val context: T = Preconditions.checkNotNull<T>(context)
+    private val handlers: MutableMap<String, ElementHandler<T>> = Maps.newHashMap()
+    private var defaultHandler: ElementHandler<T>
+    private var textHandler: TextHandler<T>
+    private var commentHandler: CommentHandler<T>
+    private var processingInstructionHandler: ProcessingInstructionHandler<T>
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
-
-import nl.knaw.huygens.tei.handlers.RenderCommentHandler;
-import nl.knaw.huygens.tei.handlers.DefaultElementHandler;
-import nl.knaw.huygens.tei.handlers.RenderProcessingInstructionHandler;
-import nl.knaw.huygens.tei.handlers.RenderTextHandler;
-
-public class DelegatingVisitor<T extends Context> extends DefaultVisitor {
-
-  private final T context;
-  private final Map<String, ElementHandler<T>> handlers;
-  private ElementHandler<T> defaultHandler;
-  private TextHandler<T> textHandler;
-  private CommentHandler<T> commentHandler;
-  private ProcessingInstructionHandler<T> processingInstructionHandler;
-
-  public DelegatingVisitor(T context) {
-    this.context = Preconditions.checkNotNull(context);
-    handlers = Maps.newHashMap();
-    defaultHandler = new DefaultElementHandler<T>();
-    textHandler = new RenderTextHandler<T>();
-    commentHandler = new RenderCommentHandler<T>();
-    processingInstructionHandler = new RenderProcessingInstructionHandler<T>();
-  }
-
-  public T getContext() {
-    return context;
-  }
-
-  public String getResult() {
-    return context.getResult();
-  }
-
-  public void setTextHandler(TextHandler<T> handler) {
-    textHandler = Preconditions.checkNotNull(handler);
-  }
-
-  public void setCommentHandler(CommentHandler<T> handler) {
-    commentHandler = Preconditions.checkNotNull(handler);
-  }
-
-  public void setProcessingInstructionHandler(ProcessingInstructionHandler<T> handler) {
-    processingInstructionHandler = Preconditions.checkNotNull(handler);
-  }
-
-  public void setDefaultElementHandler(ElementHandler<T> handler) {
-    defaultHandler = Preconditions.checkNotNull(handler);
-  }
-
-  public void addElementHandler(ElementHandler<T> handler, String... names) {
-    Preconditions.checkNotNull(handler);
-    for (String name : names) {
-      handlers.put(name, handler);
+    init {
+        defaultHandler = DefaultElementHandler()
+        textHandler = RenderTextHandler()
+        commentHandler = RenderCommentHandler()
+        processingInstructionHandler = RenderProcessingInstructionHandler()
     }
-  }
 
-  public void addElementHandler(ElementHandler<T> handler, List<String> names) {
-    Preconditions.checkNotNull(handler);
-    for (String name : names) {
-      handlers.put(name, handler);
+    open val result: String
+        get() = context.result
+
+    fun setTextHandler(handler: TextHandler<T>) {
+        textHandler = Preconditions.checkNotNull(handler)
     }
-  }
 
-  public DelegatingVisitor<T> withElementHandler(ElementHandler<T> handler, String... names) {
-    addElementHandler(handler, names);
-    return this;
-  }
+    fun setCommentHandler(handler: CommentHandler<T>) {
+        commentHandler = Preconditions.checkNotNull(handler)
+    }
 
-  public DelegatingVisitor<T> withElementHandler(ElementHandler<T> handler, List<String> names) {
-    addElementHandler(handler, names);
-    return this;
-  }
+    fun setProcessingInstructionHandler(handler: ProcessingInstructionHandler<T>) {
+        processingInstructionHandler = Preconditions.checkNotNull(handler)
+    }
 
-  private ElementHandler<T> getElementHandler(Element element) {
-    ElementHandler<T> handler = handlers.get(element.getName());
-    return (handler != null) ? handler : defaultHandler;
-  }
+    fun setDefaultElementHandler(handler: ElementHandler<T>) {
+        defaultHandler = Preconditions.checkNotNull(handler)
+    }
 
-  // --- Visiting ------------------------------------------------------
+    fun addElementHandler(handler: ElementHandler<T>, vararg names: String) {
+        Preconditions.checkNotNull(handler)
+        for (name in names) {
+            handlers[name] = handler
+        }
+    }
 
-  @Override
-  public Traversal enterElement(Element element) {
-    return getElementHandler(element).enterElement(element, context);
-  }
+    fun addElementHandler(handler: ElementHandler<T>, names: List<String>) {
+        Preconditions.checkNotNull(handler)
+        for (name in names) {
+            handlers[name] = handler
+        }
+    }
 
-  @Override
-  public Traversal leaveElement(Element element) {
-    return getElementHandler(element).leaveElement(element, context);
-  }
+    fun withElementHandler(handler: ElementHandler<T>, vararg names: String): DelegatingVisitor<T> {
+        addElementHandler(handler, *names)
+        return this
+    }
 
-  @Override
-  public Traversal visitText(Text text) {
-    return textHandler.visitText(text, context);
-  }
+    fun withElementHandler(handler: ElementHandler<T>, names: List<String>): DelegatingVisitor<T> {
+        addElementHandler(handler, names)
+        return this
+    }
 
-  @Override
-  public Traversal visitComment(Comment comment) {
-    return commentHandler.visitComment(comment, context);
-  }
+    private fun getElementHandler(element: Element): ElementHandler<T> {
+        val handler = handlers[element.name]
+        return if ((handler != null)) handler else defaultHandler
+    }
 
-  @Override
-  public Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction) {
-    return processingInstructionHandler.visitProcessingInstruction(processingInstruction, context);
-  }
+    // --- Visiting ------------------------------------------------------
+    override fun enterElement(element: Element): Traversal {
+        return getElementHandler(element).enterElement(element, context)
+    }
 
+    override fun leaveElement(element: Element): Traversal {
+        return getElementHandler(element).leaveElement(element, context)
+    }
+
+    override fun visitText(text: Text): Traversal {
+        return textHandler.visitText(text, context)
+    }
+
+    override fun visitComment(comment: Comment): Traversal {
+        return commentHandler.visitComment(comment, context)
+    }
+
+    override fun visitProcessingInstruction(processingInstruction: ProcessingInstruction): Traversal {
+        return processingInstructionHandler.visitProcessingInstruction(processingInstruction, context)
+    }
 }

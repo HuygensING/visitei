@@ -44,43 +44,43 @@ class ElementTest {
     @Test
     fun noAttributes() {
         val element = Element("tagname")
-        element.appendOpenTagTo(builder)
-        element.appendCloseTagTo(builder)
+        element.appendOpenTagTo(builder!!)
+        element.appendCloseTagTo(builder!!)
         assertRendered("<tagname></tagname>")
     }
 
     @Test
     fun oneAttribute() {
         val element = Element("name").withAttribute("key", "value")
-        element.appendOpenTagTo(builder)
-        assertRendered("<name key=\"value\">")
+        element.appendOpenTagTo(builder!!)
+        assertRendered("""<name key="value">""")
     }
 
     @Test
     fun twoAttributesInOrder() {
         val element = Element("name").withAttribute("key1", "value1").withAttribute("key2", "value2")
-        element.appendOpenTagTo(builder)
-        assertRendered("<name key1=\"value1\" key2=\"value2\">")
+        element.appendOpenTagTo(builder!!)
+        assertRendered("""<name key1="value1" key2="value2">""")
     }
 
     @Test
     fun twoAttributesOutOfOrder() {
         val element = Element("name").withAttribute("key2", "value2").withAttribute("key1", "value1")
-        element.appendOpenTagTo(builder)
-        assertRendered("<name key2=\"value2\" key1=\"value1\">")
+        element.appendOpenTagTo(builder!!)
+        assertRendered("""<name key2="value2" key1="value1">""")
     }
 
     @Test
     fun overwriteAttribute() {
         val element = Element("name").withAttribute("key1", "value1").withAttribute("key1", "value2")
-        element.appendOpenTagTo(builder)
-        assertRendered("<name key1=\"value2\">")
+        element.appendOpenTagTo(builder!!)
+        assertRendered("""<name key1="value2">""")
     }
 
     @Test
     fun emptyElementTag() {
         val element = Element("name").withAttribute("key", "value")
-        element.appendEmptyElementTagTo(builder)
+        element.appendEmptyElementTagTo(builder!!)
         assertRendered("<name key=\"value\"/>")
     }
 

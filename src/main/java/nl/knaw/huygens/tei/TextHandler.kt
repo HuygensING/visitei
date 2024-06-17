@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,8 +22,6 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public interface TextHandler<T extends Context> {
-
-  Traversal visitText(Text text, T context);
-
+interface TextHandler<T : Context> {
+    fun visitText(text: Text, context: T): Traversal
 }

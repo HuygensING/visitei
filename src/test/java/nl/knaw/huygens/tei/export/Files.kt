@@ -35,7 +35,7 @@ class Files private constructor() {
 
     companion object {
         /** Default encoding for text files.  */
-        const val ENCODING: String = "UTF-8"
+        private const val ENCODING: String = "UTF-8"
 
         /**
          * Returns a `File` with the specfied name in the user's home directory.
@@ -46,7 +46,7 @@ class Files private constructor() {
         }
 
         @JvmOverloads
-        fun writeTextToFile(text: String?, file: File?, append: Boolean = false) {
+        fun writeTextToFile(text: String, file: File, append: Boolean = false) {
             var stream: FileOutputStream? = null
             try {
                 stream = FileOutputStream(file, append)
@@ -57,7 +57,7 @@ class Files private constructor() {
             }
         }
 
-        fun writeTextToFile(text: String?, filename: String) {
+        fun writeTextToFile(text: String, filename: String) {
             writeTextToFile(text, File(filename))
         }
 

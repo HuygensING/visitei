@@ -29,19 +29,19 @@ import nl.knaw.huygens.tei.Document
 
 class ExportVisitorTest {
     @Test
-    fun testBasicXml() {
+    fun `test basic xml`() {
         val xml = "<TEI><text><head><h1>Hello World</h1></head></text></TEI>"
         assertEquals(xml, process(xml))
     }
 
     @Test
-    fun testEntities() {
+    fun `test entities`() {
         val xml = "<TEI><text>ge&lt;daen&gt;, &amp;c.</text></TEI>"
         assertEquals(xml, process(xml))
     }
 
     @Test
-    fun testProcessingInstruction() {
+    fun `test processing instruction`() {
         val xml = """<?oxygen RNGSchema="AF.rng" type="xml"?><TEI><text>text</text></TEI>"""
         assertEquals(xml, process(xml))
     }
@@ -53,13 +53,13 @@ class ExportVisitorTest {
     }
 
     @Test
-    fun testComments() {
+    fun `test comments`() {
         val xml = "<TEI><!-- comments are preserved --></TEI>"
         assertEquals(xml, process(xml))
     }
 
     @Test
-    fun testCommentsOutsideElementTreeGetCopiedToo() {
+    fun `test comments outside element tree get copied too`() {
         val xmlIn = """<!-- first -->
 <!-- before -->
 <TEI><!-- inside --></TEI>
@@ -70,16 +70,16 @@ class ExportVisitorTest {
     }
 
     @Test
-    fun testDontSplitUpText() {
+    fun `test don't split up text`() {
         val xml = """<text><div type="opener" resp="WR"><p>Illustrissime Domine lega«te,</p></div></text>"""
         assertEquals(xml, process(xml))
     }
 
     @Test
-    fun testComplexXml() {
+    fun `test complex xml`() {
         // File has UNIX style EOL's.
         val file = File("data/test/grotius/a0001.xml")
-        val xml: String = Files.Companion.readTextFromFile(file).trim { it <= ' ' }
+        val xml: String = Files.readTextFromFile(file).trim { it <= ' ' }
         // Normalize order of attributes
         val normalized = process(xml)
         assertEquals(xml.length.toLong(), normalized.length.toLong())
@@ -87,10 +87,12 @@ class ExportVisitorTest {
         assertEquals(normalized, process(normalized))
     }
 
-    private fun process(xml: String): String {
-        val document = Document.createFromXml(xml, true)
-        val visitor = ExportVisitor()
-        document.accept(visitor)
-        return visitor.context.result
+    companion object {
+        private fun process(xml: String): String {
+            val document = Document.createFromXml(xml, true)
+            val visitor = ExportVisitor()
+            document.accept(visitor)
+            return visitor.context.result
+        }
     }
 }

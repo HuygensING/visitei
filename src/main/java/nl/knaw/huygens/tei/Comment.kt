@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,38 +22,24 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class Comment extends SubNode {
+class Comment : SubNode {
+    // -------------------------------------------------------------------
+    private var comment: String
 
-  private String comment;
+    constructor(chars: CharArray, start: Int, length: Int) {
+        comment = String(chars, start, length)
+    }
 
-  public Comment(char[] chars, int start, int length) {
-    comment = new String(chars, start, length);
-  }
+    constructor(comment: String) {
+        this.comment = comment
+    }
 
-  public Comment(String comment) {
-    this.comment = comment;
-  }
+    // --- visiting ------------------------------------------------------
+    override fun accept(visitor: Visitor): Traversal {
+        return visitor.visitComment(this)
+    }
 
-  // --- visiting ------------------------------------------------------
-
-  @Override
-  public Traversal accept(Visitor visitor) {
-    return visitor.visitComment(this);
-  }
-
-  // -------------------------------------------------------------------
-
-  public String getComment() {
-    return comment;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
-
-  @Override
-  public String toString() {
-    return "<!--" + comment + "-->";
-  }
-
+    override fun toString(): String {
+        return "<!--$comment-->"
+    }
 }

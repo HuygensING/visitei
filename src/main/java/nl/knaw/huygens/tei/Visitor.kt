@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -25,20 +25,18 @@ package nl.knaw.huygens.tei;
 /**
  * Hierarchical visitor.
  */
-public interface Visitor {
+interface Visitor {
+    fun enterDocument(document: Document): Traversal
 
-  Traversal enterDocument(Document document);
+    fun leaveDocument(document: Document): Traversal
 
-  Traversal leaveDocument(Document document);
+    fun enterElement(element: Element): Traversal
 
-  Traversal enterElement(Element element);
+    fun leaveElement(element: Element): Traversal
 
-  Traversal leaveElement(Element element);
+    fun visitText(text: Text): Traversal
 
-  Traversal visitText(Text text);
+    fun visitComment(comment: Comment): Traversal
 
-  Traversal visitComment(Comment comment);
-
-  Traversal visitProcessingInstruction(ProcessingInstruction processingInstruction);
-
+    fun visitProcessingInstruction(processingInstruction: ProcessingInstruction): Traversal
 }

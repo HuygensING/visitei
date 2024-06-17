@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,19 +22,19 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class Documents {
+class Documents private constructor() {
+    init {
+        throw AssertionError("Non-instantiable class")
+    }
 
-  public static Document newDocument(String xml) {
-    return Document.createFromXml(xml, true);
-  }
+    companion object {
+        fun newDocument(xml: String): Document {
+            return Document.createFromXml(xml, true)
+        }
 
-  public static <T extends Visitor> T visitXml(String xml, T visitor) {
-    newDocument(xml).accept(visitor);
-    return visitor;
-  }
-
-  private Documents() {
-    throw new AssertionError("Non-instantiable class");
-  }
-
+        fun <T : Visitor> visitXml(xml: String, visitor: T): T {
+            newDocument(xml).accept(visitor)
+            return visitor
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -22,44 +22,14 @@ package nl.knaw.huygens.tei;
  * #L%
  */
 
-public class ProcessingInstruction extends SubNode {
+class ProcessingInstruction(
+    private var target: String,
+    private var data: String
+) : SubNode() {
 
-  private String target;
-  private String data;
+    override fun accept(visitor: Visitor): Traversal =
+        visitor.visitProcessingInstruction(this)
 
-  public ProcessingInstruction(String target, String data) {
-    this.target = target;
-    this.data = data;
-  }
-
-  // --- visiting ------------------------------------------------------
-
-  @Override
-  public Traversal accept(Visitor visitor) {
-    return visitor.visitProcessingInstruction(this);
-  }
-
-  // -------------------------------------------------------------------
-
-  public String getTarget() {
-    return target;
-  }
-
-  public void setTarget(String target) {
-    this.target = target;
-  }
-
-  public String getData() {
-    return data;
-  }
-
-  public void setData(String data) {
-    this.data = data;
-  }
-
-  @Override
-  public String toString() {
-    return "<?" + target + " " + data + "?>";
-  }
-
+    override fun toString(): String =
+        "<?$target $data?>"
 }

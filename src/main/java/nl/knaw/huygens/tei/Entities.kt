@@ -1,4 +1,4 @@
-package nl.knaw.huygens.tei;
+package nl.knaw.huygens.tei
 
 /*
  * #%L
@@ -25,16 +25,14 @@ package nl.knaw.huygens.tei;
 /**
  * Contains definitions of some character entities.
  */
-public class Entities {
+object Entities {
+    const val EM_DASH: String = "&#8212;" // named: "&mdash;"
 
-  public static final String EM_DASH = "&#8212;"; // named: "&mdash;"
+    const val LS_QUOTE: String = "&#8216;" // named: "&lsquo;"
+    const val RS_QUOTE: String = "&#8217;" // named: "&rsquo;"
 
-  public static final String LS_QUOTE = "&#8216;"; // named: "&lsquo;"
-  public static final String RS_QUOTE = "&#8217;"; // named: "&rsquo;"
+    const val LD_QUOTE: String = "&#8220;" // named: "&ldquo;"
+    const val RD_QUOTE: String = "&#8221;" // named: "&rdquo;"
 
-  public static final String LD_QUOTE = "&#8220;"; // named: "&ldquo;"
-  public static final String RD_QUOTE = "&#8221;"; // named: "&rdquo;"
-
-  public static final String BULLET = "&#8226;"; // named: "&bull;"
-
+    const val BULLET: String = "&#8226;" // named: "&bull;"
 }
