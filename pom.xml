@@ -17,7 +17,6 @@
         <commons-io.version>2.16.1</commons-io.version>
         <guava.version>33.2.1-jre</guava.version>
         <junit.version>4.13.2</junit.version>
-        <log.version>1.1.1</log.version>
         <maven-license.version>2.4.0</maven-license.version>
         <practicalxml.version>1.1.19</practicalxml.version>
         <wagon-ssh.version>2.2</wagon-ssh.version>
@@ -51,12 +50,6 @@
             <version>${commons-io.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>nl.knaw.huygens</groupId>
-            <artifactId>log</artifactId>
-            <version>${log.version}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
