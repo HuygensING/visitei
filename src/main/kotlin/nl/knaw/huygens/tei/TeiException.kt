@@ -32,7 +32,4 @@ class TeiException : Exception {
 
     constructor(format: String, vararg args: Any) : super(String.format(format, *args))
 
-    companion object {
-        private const val serialVersionUID = 1L
-    }
 }

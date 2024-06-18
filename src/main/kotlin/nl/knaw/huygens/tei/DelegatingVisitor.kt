@@ -48,23 +48,22 @@ open class DelegatingVisitor<T : Context>(context: T) : DefaultVisitor() {
         get() = context.result
 
     fun setTextHandler(handler: TextHandler<T>) {
-        textHandler = Preconditions.checkNotNull(handler)
+        textHandler = handler
     }
 
     fun setCommentHandler(handler: CommentHandler<T>) {
-        commentHandler = Preconditions.checkNotNull(handler)
+        commentHandler = handler
     }
 
     fun setProcessingInstructionHandler(handler: ProcessingInstructionHandler<T>) {
-        processingInstructionHandler = Preconditions.checkNotNull(handler)
+        processingInstructionHandler = handler
     }
 
     fun setDefaultElementHandler(handler: ElementHandler<T>) {
-        defaultHandler = Preconditions.checkNotNull(handler)
+        defaultHandler = handler
     }
 
     fun addElementHandler(handler: ElementHandler<T>, vararg names: String) {
-        Preconditions.checkNotNull(handler)
         for (name in names) {
             handlers[name] = handler
         }
@@ -93,23 +92,14 @@ open class DelegatingVisitor<T : Context>(context: T) : DefaultVisitor() {
     }
 
     // --- Visiting ------------------------------------------------------
-    override fun enterElement(element: Element): Traversal {
-        return getElementHandler(element).enterElement(element, context)
-    }
+    override fun enterElement(element: Element): Traversal = getElementHandler(element).enterElement(element, context)
 
-    override fun leaveElement(element: Element): Traversal {
-        return getElementHandler(element).leaveElement(element, context)
-    }
+    override fun leaveElement(element: Element): Traversal = getElementHandler(element).leaveElement(element, context)
 
-    override fun visitText(text: Text): Traversal {
-        return textHandler.visitText(text, context)
-    }
+    override fun visitText(text: Text): Traversal = textHandler.visitText(text, context)
 
-    override fun visitComment(comment: Comment): Traversal {
-        return commentHandler.visitComment(comment, context)
-    }
+    override fun visitComment(comment: Comment): Traversal = commentHandler.visitComment(comment, context)
 
-    override fun visitProcessingInstruction(processingInstruction: ProcessingInstruction): Traversal {
-        return processingInstructionHandler.visitProcessingInstruction(processingInstruction, context)
-    }
+    override fun visitProcessingInstruction(processingInstruction: ProcessingInstruction): Traversal =
+        processingInstructionHandler.visitProcessingInstruction(processingInstruction, context)
 }

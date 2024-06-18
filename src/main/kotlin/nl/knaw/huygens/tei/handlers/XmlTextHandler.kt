@@ -25,11 +25,11 @@ import nl.knaw.huygens.tei.Context
 */
 
 class XmlTextHandler<T : Context> : RenderTextHandler<T>() {
-    override fun filterText(text: String): String {
-        val n = text.length
+    override fun filterText(content: String): String {
+        val n = content.length
         val builder = StringBuilder((n * 1.1).toInt())
         for (i in 0 until n) {
-            when (val c = text[i]) {
+            when (val c = content[i]) {
                 '<' -> builder.append("&lt;")
                 '>' -> builder.append("&gt;")
                 '&' -> builder.append("&amp;")

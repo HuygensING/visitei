@@ -37,4 +37,10 @@ class TeiExceptionTest {
         val e = TeiException("Test %d", 1)
         assertEquals("Test 1", e.message)
     }
+
+    @Test
+    fun testConstructor() {
+        val e = TeiException("Test")
+        assertEquals("Test", e.message)
+    }
 }

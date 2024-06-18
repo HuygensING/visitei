@@ -148,7 +148,7 @@ class Element @JvmOverloads constructor(// -------------------------------------
 
     fun hasAttribute(key: String): Boolean {
         val value = attributes[key]
-        return (value != null) && (value.isNotEmpty())
+        return !value.isNullOrEmpty()
     }
 
     fun hasAttribute(key: String, value: String): Boolean {

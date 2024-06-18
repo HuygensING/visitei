@@ -37,7 +37,6 @@ open class RenderTextHandler<T : Context> : TextHandler<T> {
         return Traversal.NEXT
     }
 
-    protected open fun filterText(content: String): String {
-        return content
-    }
+    protected open fun filterText(content: String): String =
+        content
 }

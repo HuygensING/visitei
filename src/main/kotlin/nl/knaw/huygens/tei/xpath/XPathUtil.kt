@@ -71,9 +71,8 @@ object XPathUtil {
     }
 
     @Throws(XPathExpressionException::class)
-    fun evaluate(xpathQuery: String, xml: String): String {
-        return evaluate(xpathQuery, xml, String::class.java)
-    }
+    fun evaluate(xpathQuery: String, xml: String): String =
+        evaluate(xpathQuery, xml, String::class.java)
 
     fun getNamespaceInfo(xml: String): Map<String, String> {
         val namespaces: MutableMap<String, String> = Maps.newIdentityHashMap()
