@@ -15,7 +15,7 @@
         <jdk.version>1.8</jdk.version>
 
         <commons-io.version>2.16.1</commons-io.version>
-        <guava.version>33.2.1-jre</guava.version>
+        <guava.version>33.7.1-jre</guava.version>
         <junit.version>4.13.2</junit.version>
         <maven-license.version>2.4.0</maven-license.version>
         <practicalxml.version>1.1.19</practicalxml.version>
